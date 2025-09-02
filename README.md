@@ -19,3 +19,5 @@ While the team will keep updating the benchmark coverage, it is highly encourage
 
 ## Disclaimer
 We do not include any proprietary datasets or the ones with unknown sources for transparency. We also encourage users to be careful with the potential training/test overlap, e.g., some datasets like ASVspoof2019 / ASVspoof5 are widely used as training sets. Results obtained with this toolkit should solely be used for research purposes instead of advertisement for commercial usage.
+
+## License

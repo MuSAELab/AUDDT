@@ -7,11 +7,9 @@ source ./download/config.sh
 
 DEST="$ROOT/asvspoof2021_df"
 mkdir -p "$DEST"
-cd "$DEST" || exit
-
 
 for i in {00..03}; do
-    wget -c -O ASVspoof2021_DF_eval_part$i.tar.gz \
+    wget -c -O $DEST/ASVspoof2021_DF_eval_part$i.tar.gz \
         "https://zenodo.org/record/4835108/files/ASVspoof2021_DF_eval_part$i.tar.gz"
 done
 
@@ -24,12 +22,12 @@ declare -A checksums=(
 )
 
 for i in {00..03}; do
-    echo "${checksums[$i]}  ASVspoof2021_DF_eval_part$i.tar.gz" | md5sum -c -
+    echo "${checksums[$i]}  $DEST/ASVspoof2021_DF_eval_part$i.tar.gz" | md5sum -c -
 done
 
 
 for i in {00..03}; do
-    tar -xzf ASVspoof2021_DF_eval_part$i.tar.gz -C "$DEST"
+    tar -xzf $DEST/ASVspoof2021_DF_eval_part$i.tar.gz -C "$DEST"
 done
 
 echo " --- ASVspoof 2021 DF download and extraction complete. Files saved in $DEST ---"
