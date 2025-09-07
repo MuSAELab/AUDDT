@@ -47,7 +47,7 @@ if __name__ == "__main__":
         hparams = load_hyperpyyaml(f, overrides)
 
     main(
-        data_folder=hparams["data_root"],
-        dest_folder=hparams["dest_folder"],
+        data_folder=os.path.join(hparams["data_root"], "diffssd", "raw"),
+        dest_folder=os.path.join(hparams["dest_folder"], "diffssd", "processed"),
         manifest_file=hparams["manifest_file"]
     )
