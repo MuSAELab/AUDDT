@@ -1,0 +1,36 @@
+#!/bin/bash
+# Download SRC4VC dataset from Zenodo (record 14498691)
+# Note: Download speed for this dataset, via wget, is very slow.
+
+source ./download/config.sh
+
+DEST="$ROOT/src4vc/raw"
+mkdir -p "$DEST"
+
+# Download the dataset only if it doesn't exist
+if [ ! -f $DEST/SRC4VC_ver1.zip ]; then
+    echo "Downloading SRC4VC dataset..."
+    if ! wget -c -O $DEST/SRC4VC_ver1.zip http://sython.org/Corpus/SRC4VC/SRC4VC_ver1.zip; then
+        echo "Error: Failed to download SRC4VC dataset"
+        exit 1
+    fi
+    echo "Download completed successfully"
+fi
+
+# Extract the dataset
+echo "Extracting dataset..."
+if ! unzip $DEST/SRC4VC_ver1.zip -d $DEST; then
+    echo "Error: Failed to extract SRC4VC dataset"
+    exit 1
+fi
+
+# Verify extraction was successful (check if any files were extracted)
+if [ ! "$(ls -A $DEST)" ]; then
+    echo "Error: No files were extracted"
+    exit 1
+fi
+
+# Remove the zip file only after successful extraction
+rm $DEST/SRC4VC_ver1.zip
+
+echo " --- SRC4VC download complete. Files saved in $DEST ---"
