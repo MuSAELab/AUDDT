@@ -1,0 +1,3 @@
+data_root: !PLACEHOLDER
+dest_folder: !PLACEHOLDER
+manifest_file: manifest.csv
