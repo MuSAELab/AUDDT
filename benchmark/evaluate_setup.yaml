@@ -1,0 +1,41 @@
+# ===================================================================
+#               Configuration for the Evaluation Script
+# ===================================================================
+
+# 1. MODEL CONFIGURATION: Define the model to be benchmarked.
+# -------------------------------------------------------------------
+model:
+  # Path to the model's .py file.
+  path: models/custom_wav2vec_model.py
+  # Name of the model class within the .py file.
+  class_name: Wav2Vec2Model
+  # Path to the pretrained model checkpoint (.pth or similar).
+  checkpoint: /path/to/your/model_checkpoint.pth
+
+
+# 2. DATA CONFIGURATION: Specify which dataset(s) to evaluate on.
+# -------------------------------------------------------------------
+# !!! IMPORTANT: You must specify EITHER a single `manifest_path` OR a `group_name`, but not both.
+# To use a single dataset, fill in `manifest_path` and leave `group_name` as null.
+# To use a dataset group, fill in `group_name` and leave `manifest_path` as null.
+data:
+  # --- Option A: For a single dataset run ---
+  manifest_path: null # e.g., "data/manifests/asvspoof2019.csv"
+  
+  # --- Option B: For a group run ---
+  group_name: cross_corpus_eval # e.g., "tts_focused_eval"
+
+  # Path to the YAML file that defines your dataset groups.
+  groups_config_path: benchmarks/hparams/dataset_groups.yaml
+
+
+# 3. EVALUATION SETTINGS: Control the output and runtime parameters.
+# -------------------------------------------------------------------
+evaluation_settings:
+  # Directory where all results (scores, metrics, tables) will be saved.
+  results_dir: results
+  # Batch size for the dataloader.
+  batch_size: 16
+  # Optional: If you provide a path here, a LaTeX .tex file with a results
+  # table will be generated automatically. Leave as null to disable.
+  latex_output_path: results/my_model_on_cross_corpus_results.tex # e.g., null
