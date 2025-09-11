@@ -4,20 +4,21 @@
 source ./download/config.sh
 
 DEST="$ROOT/asvspoof5"
-mkdir -p "$DEST"
+mkdir -p "$DEST/raw"
+mkdir -p "$DEST/processed"
 
 # label and readme files
-wget -c -O $DEST/LICENSE.txt https://zenodo.org/record/14498691/files/LICENSE.txt
-wget -c -O $DEST/README.txt https://zenodo.org/record/14498691/files/README.txt
-wget -c -O $DESTASVspoof5_protocols.tar.gz https://zenodo.org/record/14498691/files/ASVspoof5_protocols.tar.gz
+wget -c -O $DEST/raw/LICENSE.txt https://zenodo.org/record/14498691/files/LICENSE.txt
+wget -c -O $DEST/raw/README.txt https://zenodo.org/record/14498691/files/README.txt
+wget -c -O $DEST/raw/ASVspoof5_protocols.tar.gz https://zenodo.org/record/14498691/files/ASVspoof5_protocols.tar.gz
 
-tar -xzf $DEST/ASVspoof5_protocols.tar.gz -C "$DEST"
+tar -xzf $DEST/raw/ASVspoof5_protocols.tar.gz -C "$DEST/processed"
 
 # Evaluation split
 for file in flac_E_aa.tar flac_E_ab.tar flac_E_ac.tar flac_E_ad.tar flac_E_ae.tar \
             flac_E_af.tar flac_E_ag.tar flac_E_ah.tar; do
-    wget -c https://zenodo.org/record/14498691/files/$file
-    tar -xf $DEST/$file -C "$DEST"
+    wget -c -O $DEST/raw/$file https://zenodo.org/record/14498691/files/$file
+    tar -xf $DEST/raw/$file -C "$DEST/processed"
 done
 
 ################################

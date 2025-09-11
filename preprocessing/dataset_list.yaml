@@ -6,36 +6,36 @@ ROOT_DATA: ./data
 datasets:
   - name: for-original
     # The script that will be used to process this dataset.
-    script_path: prepare_datasets/prep_fororiginal.py
+    script_path: prepare_datasets/prep_for.py
     args:
       # The location of the raw, unzipped data.
-      --source_dir: $ROOT_DATA/for-original/for-original/testing
+      --source_dir: $ROOT_DATA/for-original/processed/for-original/testing
       # The desired location for the final manifest CSV file.
-      --output_path: manifest/for-original.csv
+      --output_path: $ROOT_DATA/for-original/processed/manifest_for-original.csv
 
   - name: for-norm
-    script_path: prepare_datasets/prep_fornorm.py
+    script_path: prepare_datasets/prep_for.py
     args:
-      --source_dir: $ROOT_DATA/for-norm/for-norm/testing
-      --output_path: manifest/for-norm.csv
+      --source_dir: $ROOT_DATA/for-norm/processed/for-norm/testing
+      --output_path: $ROOT_DATA/for-norm/processed/manifest_for-norm.csv
 
   - name: for-2s
-    script_path: prepare_datasets/prep_for2s.py
+    script_path: prepare_datasets/prep_for.py
     args:
-      --source_dir: $ROOT_DATA/for-2s/for-2s/testing
-      --output_path: manifest/for-2s.csv
+      --source_dir: $ROOT_DATA/for-2s/processed/for-2s/testing
+      --output_path: $ROOT_DATA/for-2s/processed/manifest_for-2s.csv
 
   - name: for-rerecorded
-    script_path: prepare_datasets/prep_for-rerecorded.py
+    script_path: prepare_datasets/prep_for.py
     args:
-      --source_dir: $ROOT_DATA/for-rerecorded/for-rerecorded/testing
-      --output_path: manifest/for-rerecorded.csv
+      --source_dir: $ROOT_DATA/for-rerecorded/processed/for-rerecorded/testing
+      --output_path: $ROOT_DATA/for-rerecorded/processed/manifest_for-rerecorded.csv
 
   - name: playback-attacks
     script_path: prepare_datasets/prep_playback-attacks.py
     args:
-      --source_dir: $ROOT_DATA/playback_attacks/data
-      --label_file: $ROOT_DATA/playback_attacks/metadata.csv
+      --source_dir: $ROOT_DATA/playback_attacks/processed/data
+      --label_file: $ROOT_DATA/playback_attacks/processed/metadata.csv
       --output_path: manifest/playback-attacks.csv
 
   # - name: "Another_Dataset_Type"

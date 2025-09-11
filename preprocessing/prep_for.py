@@ -28,7 +28,7 @@ def create_manifest(source_dir, output_path):
     
     # Process the 'real' directory
     if os.path.isdir(real_path):
-        print(f"Scanning 'real' audio files in {real_path}...")
+        print(f"Scanning real audio files in {real_path}...")
         for filename in tqdm(os.listdir(real_path)):
             if filename.lower().endswith(supported_extensions):
                 # We use os.path.abspath to ensure the path is not relative
@@ -36,18 +36,18 @@ def create_manifest(source_dir, output_path):
                 audio_path = os.path.abspath(os.path.join(real_path, filename))
                 manifest_data.append({
                     'audio_path': audio_path,
-                    'label': 1  # 1 for bonafide/real
+                    'label': 'bonafide'
                 })
 
     # Process the 'fake' directory
     if os.path.isdir(fake_path):
-        print(f"Scanning 'fake' audio files in {fake_path}...")
+        print(f"Scanning fake audio files in {fake_path}...")
         for filename in tqdm(os.listdir(fake_path)):
             if filename.lower().endswith(supported_extensions):
                 audio_path = os.path.abspath(os.path.join(fake_path, filename))
                 manifest_data.append({
                     'audio_path': audio_path,
-                    'label': 0  # 0 for spoof/fake
+                    'label': 'spoof'
                 })
 
     if not manifest_data:

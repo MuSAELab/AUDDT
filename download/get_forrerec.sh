@@ -6,7 +6,8 @@
 source ./config.sh
 
 DEST="$ROOT/for-rerec"
-mkdir -p "$DEST"
+mkdir -p "$DEST/raw"
+mkdir -p "$DEST/processed"
 
 echo "Downloading for-rerec.tar.gz..."
 wget --no-check-certificate "https://bil.eecs.yorku.ca/share/for-rerec.tar.gz" -O "$DEST/for-rerec.tar.gz"
