@@ -8,7 +8,7 @@ datasets:
     # The script that will be used to process this dataset.
     script_path: prepare_datasets/prep_for.py
     args:
-      # The location of the raw, unzipped data.
+      # The location of the unzipped data.
       --source_dir: $ROOT_DATA/for-original/processed/for-original/testing
       # The desired location for the final manifest CSV file.
       --output_path: $ROOT_DATA/for-original/processed/manifest_for-original.csv
