@@ -4,9 +4,21 @@
 ROOT_DATA: ./data
 
 datasets:
+  - name: Codecfake
+    script_path: preprocessing/prep_Codecfake.py
+    args:
+      --source_dir: $ROOT_DATA/Codecfake/processed
+      --output_path: $ROOT_DATA/Codecfake/processed/manifest_Codecfake.csv
+
+  - name: mlaad-v5
+    script_path: preprocessing/prep_mlaad.py
+    args:
+      --source_dir: $ROOT_DATA/mlaad-v5/processed
+      --output_path: $ROOT_DATA/mlaad-v5/processed/manifest_mlaad-v5.csv
+
   - name: for-original
     # The script that will be used to process this dataset.
-    script_path: prepare_datasets/prep_for.py
+    script_path: preprocessing/prep_for.py
     args:
       # The location of the unzipped data.
       --source_dir: $ROOT_DATA/for-original/processed/for-original/testing
@@ -14,37 +26,27 @@ datasets:
       --output_path: $ROOT_DATA/for-original/processed/manifest_for-original.csv
 
   - name: for-norm
-    script_path: prepare_datasets/prep_for.py
+    script_path: preprocessing/prep_for.py
     args:
       --source_dir: $ROOT_DATA/for-norm/processed/for-norm/testing
       --output_path: $ROOT_DATA/for-norm/processed/manifest_for-norm.csv
 
   - name: for-2s
-    script_path: prepare_datasets/prep_for.py
+    script_path: preprocessing/prep_for.py
     args:
       --source_dir: $ROOT_DATA/for-2s/processed/for-2s/testing
       --output_path: $ROOT_DATA/for-2s/processed/manifest_for-2s.csv
 
   - name: for-rerecorded
-    script_path: prepare_datasets/prep_for.py
+    script_path: preprocessing/prep_for.py
     args:
       --source_dir: $ROOT_DATA/for-rerecorded/processed/for-rerecorded/testing
       --output_path: $ROOT_DATA/for-rerecorded/processed/manifest_for-rerecorded.csv
 
   - name: playback-attacks
-    script_path: prepare_datasets/prep_playback-attacks.py
+    script_path: preprocessing/prep_playback-attacks.py
     args:
       --source_dir: $ROOT_DATA/playback_attacks/processed/data
       --label_file: $ROOT_DATA/playback_attacks/processed/metadata.csv
       --output_path: manifest/playback-attacks.csv
-
-  # - name: "Another_Dataset_Type"
-  #   script_path: "datasets/prepare_another_type.py"
-  #   args:
-  #     --audio_folder: "/path/to/another/dataset"
-  #     --json_metadata: "/path/to/another/metadata.json"
-  #     --output_file: "data/manifests/another_type.csv"
-  #     --sample_rate: 16000
-
-# Add other datasets here, each with its specific script and arguments.
 

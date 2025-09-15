@@ -1,5 +1,5 @@
 # AUDiT: An Open Benchmark Toolkit for Audio Deepfake Detection
-AUDiT is a toolkit that allows to easily benchmark pretrained audio deepfake detection models on a wide variety of publicly available audio deepfake datasets. The current version includes 27 datasets as of Jan 2025. 
+AUDiT is a toolkit that allows to easily benchmark pretrained audio deepfake detection models on a wide variety of publicly available audio deepfake datasets. The current version includes 27 datasets.
 
 ## Start Benchmarking
 Follow the steps below to benchmark your pre-trained deepfake detector:
