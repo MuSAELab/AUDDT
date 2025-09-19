@@ -1,4 +1,4 @@
-# AUDIT: An Open Benchmark Toolkit for Audio Deepfake Detection
+# AUDDT: Audio Unified Deepfake Detection Benchmark Toolkit
 
 <p align="center">
   <img alt="License" src="https://img.shields.io/badge/License-CC_BY--NC_4.0-orange.svg">
@@ -7,7 +7,7 @@
   <img alt="Issues" src="https://img.shields.io/github/issues/your_username/AUDIT">
 </p>
 
-**AUDIT** is a benchmark toolkit for audio deepfake detection. The landscape of audio deepfake detection is fragmented with numerous datasets, each having its own data format and evaluation protocol. AUDIT addresses this by providing a unified platform to seamlessly benchmark pretrained models against a wide variety of public datasets.
+**AUDDT** is a benchmark toolkit for audio deepfake detection. The landscape of audio deepfake detection is fragmented with numerous datasets, each having its own data format and evaluation protocol. AUDIT addresses this by providing a unified platform to seamlessly benchmark pretrained models against a wide variety of public datasets.
 
 The current version includes standardized preparation scripts for **27+ datasets**.
 
