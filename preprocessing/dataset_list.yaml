@@ -4,61 +4,67 @@
 ROOT_DATA: ./data
 
 datasets:
-  - name: Codecfake
-    script_path: preprocessing/prep_Codecfake.py
-    args:
-      --source_dir: $ROOT_DATA/Codecfake/processed
-      --output_path: $ROOT_DATA/Codecfake/processed/manifest_Codecfake.csv
-
-  # - name: CodecFake
-  #   script_path: preprocessing/prep_CodecFake.py
+  # - name: jvnv
+  #   script_path: preprocessing/prep_jvnv.py
   #   args:
-  #     --source_dir: $ROOT_DATA/CodecFake/processed
-  #     --output_path: $ROOT_DATA/CodecFake/processed/manifest_CodecFake.csv
+  #     --source_dir: $ROOT_DATA/jvnv/processed/jvnv_v1
+  #     --output_path: $ROOT_DATA/jvnv/processed/manifest_jvnv.csv
 
-  - name: in-the-wild
-    script_path: preprocessing/prep_itw.py
-    args:
-      --source_dir: $ROOT_DATA/in-the-wild/processed/release_in_the_wild/
-      --output_path: $ROOT_DATA/in-the-wild/processed/manifest_itw.csv
+  # - name: Codecfake
+  #   script_path: preprocessing/prep_Codecfake.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/Codecfake/processed
+  #     --output_path: $ROOT_DATA/Codecfake/processed/manifest_Codecfake.csv
 
-  - name: mlaad-v5
-    script_path: preprocessing/prep_mlaad.py
+  - name: CodecFake
+    script_path: preprocessing/prep_CodecFake.py
     args:
-      --source_dir: $ROOT_DATA/mlaad-v5/processed
-      --output_path: $ROOT_DATA/mlaad-v5/processed/manifest_mlaad-v5.csv
+      --source_dir: $ROOT_DATA/CodecFake/processed
+      --output_path: $ROOT_DATA/CodecFake/processed/manifest_CodecFake.csv
 
-  - name: for-original
-    # The script that will be used to process this dataset.
-    script_path: preprocessing/prep_for.py
-    args:
-      # The location of the unzipped data.
-      --source_dir: $ROOT_DATA/for-original/processed/for-original/testing
-      # The desired location for the final manifest CSV file.
-      --output_path: $ROOT_DATA/for-original/processed/manifest_for-original.csv
+  # - name: in-the-wild
+  #   script_path: preprocessing/prep_itw.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/in-the-wild/processed/release_in_the_wild/
+  #     --output_path: $ROOT_DATA/in-the-wild/processed/manifest_itw.csv
 
-  - name: for-norm
-    script_path: preprocessing/prep_for.py
-    args:
-      --source_dir: $ROOT_DATA/for-norm/processed/for-norm/testing
-      --output_path: $ROOT_DATA/for-norm/processed/manifest_for-norm.csv
+  # - name: mlaad-v5
+  #   script_path: preprocessing/prep_mlaad.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/mlaad-v5/processed
+  #     --output_path: $ROOT_DATA/mlaad-v5/processed/manifest_mlaad-v5.csv
 
-  - name: for-2s
-    script_path: preprocessing/prep_for.py
-    args:
-      --source_dir: $ROOT_DATA/for-2s/processed/for-2s/testing
-      --output_path: $ROOT_DATA/for-2s/processed/manifest_for-2s.csv
+  # - name: for-original
+  #   # The script that will be used to process this dataset.
+  #   script_path: preprocessing/prep_for.py
+  #   args:
+  #     # The location of the unzipped data.
+  #     --source_dir: $ROOT_DATA/for-original/processed/for-original/testing
+  #     # The desired location for the final manifest CSV file.
+  #     --output_path: $ROOT_DATA/for-original/processed/manifest_for-original.csv
 
-  - name: for-rerec
-    script_path: preprocessing/prep_for.py
-    args:
-      --source_dir: $ROOT_DATA/for-rerec/processed/for-rerec/testing
-      --output_path: $ROOT_DATA/for-rerec/processed/manifest_for-rerec.csv
+  # - name: for-norm
+  #   script_path: preprocessing/prep_for.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/for-norm/processed/for-norm/testing
+  #     --output_path: $ROOT_DATA/for-norm/processed/manifest_for-norm.csv
 
-  - name: playback-attacks
-    script_path: preprocessing/prep_playback-attacks.py
-    args:
-      --source_dir: $ROOT_DATA/playback_attacks/processed/data
-      --label_file: $ROOT_DATA/playback_attacks/processed/metadata.csv
-      --output_path: manifest/playback-attacks.csv
+  # - name: for-2s
+  #   script_path: preprocessing/prep_for.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/for-2s/processed/for-2s/testing
+  #     --output_path: $ROOT_DATA/for-2s/processed/manifest_for-2s.csv
+
+  # - name: for-rerec
+  #   script_path: preprocessing/prep_for.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/for-rerec/processed/for-rerec/testing
+  #     --output_path: $ROOT_DATA/for-rerec/processed/manifest_for-rerec.csv
+
+  # - name: playback-attacks
+  #   script_path: preprocessing/prep_playback-attacks.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/playback_attacks/processed/data
+  #     --label_file: $ROOT_DATA/playback_attacks/processed/metadata.csv
+  #     --output_path: manifest/playback-attacks.csv
 
