@@ -22,11 +22,18 @@ datasets:
   #     --source_dir: $ROOT_DATA/CodecFake/processed
   #     --output_path: $ROOT_DATA/CodecFake/processed/manifest_CodecFake.csv
   
-  - name: cvoicefake
-    script_path: preprocessing/prep_cvoicefake.py
+  # - name: cvoicefake
+  #   script_path: preprocessing/prep_cvoicefake.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/cvoicefake/processed/CVoiceFake_Large
+  #     --output_path: $ROOT_DATA/cvoicefake/processed/manifest_cvoicefake.csv
+  
+  - name: habla
+    script_path: preprocessing/prep_habla.py
     args:
-      --source_dir: $ROOT_DATA/cvoicefake/processed/CVoiceFake_Large
-      --output_path: $ROOT_DATA/cvoicefake/processed/manifest_cvoicefake.csv
+      --source_dir: $ROOT_DATA/habla/processed/eval
+      --label_file: $ROOT_DATA/habla/raw/protocol.txt
+      --output_path: $ROOT_DATA/habla/processed/manifest_habla.csv
 
   # - name: in-the-wild
   #   script_path: preprocessing/prep_itw.py
