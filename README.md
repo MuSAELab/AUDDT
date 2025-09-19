@@ -4,7 +4,7 @@
   <img alt="License" src="https://img.shields.io/badge/License-CC_BY--NC_4.0-orange.svg">
   <img alt="Python" src="https://img.shields.io/badge/Python-3.8+-green.svg">
   <img alt="Paper" src="https://img.shields.io/badge/arXiv-xxxx.xxxxx-b31b1b.svg">
-  <img alt="Issues" src="https://img.shields.io/github/issues/your_username/AUDIT">
+  <img alt="Issues" src="https://github.com/zhu00121/AUDDT/issues">
 </p>
 
 **AUDDT** is a benchmark toolkit for audio deepfake detection. The landscape of audio deepfake detection is fragmented with numerous datasets, each having its own data format and evaluation protocol. AUDIT addresses this by providing a unified platform to seamlessly benchmark pretrained models against a wide variety of public datasets.
