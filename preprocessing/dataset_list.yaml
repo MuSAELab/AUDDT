@@ -16,11 +16,17 @@ datasets:
   #     --source_dir: $ROOT_DATA/Codecfake/processed
   #     --output_path: $ROOT_DATA/Codecfake/processed/manifest_Codecfake.csv
 
-  - name: CodecFake
-    script_path: preprocessing/prep_CodecFake.py
+  # - name: CodecFake
+  #   script_path: preprocessing/prep_CodecFake.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/CodecFake/processed
+  #     --output_path: $ROOT_DATA/CodecFake/processed/manifest_CodecFake.csv
+  
+  - name: cvoicefake
+    script_path: preprocessing/prep_cvoicefake.py
     args:
-      --source_dir: $ROOT_DATA/CodecFake/processed
-      --output_path: $ROOT_DATA/CodecFake/processed/manifest_CodecFake.csv
+      --source_dir: $ROOT_DATA/cvoicefake/processed/CVoiceFake_Large
+      --output_path: $ROOT_DATA/cvoicefake/processed/manifest_cvoicefake.csv
 
   # - name: in-the-wild
   #   script_path: preprocessing/prep_itw.py
