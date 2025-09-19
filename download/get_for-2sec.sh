@@ -2,8 +2,7 @@
 
 # Download and extract the for-2sec version of the FoR dataset
 
-
-source ./config.sh
+source ./download/config.sh
 
 DEST="$ROOT/for-2sec"
 mkdir -p "$DEST/raw"

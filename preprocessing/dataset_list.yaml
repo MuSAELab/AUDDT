@@ -49,11 +49,11 @@ datasets:
       --source_dir: $ROOT_DATA/for-2s/processed/for-2s/testing
       --output_path: $ROOT_DATA/for-2s/processed/manifest_for-2s.csv
 
-  - name: for-rerecorded
+  - name: for-rerec
     script_path: preprocessing/prep_for.py
     args:
-      --source_dir: $ROOT_DATA/for-rerecorded/processed/for-rerecorded/testing
-      --output_path: $ROOT_DATA/for-rerecorded/processed/manifest_for-rerecorded.csv
+      --source_dir: $ROOT_DATA/for-rerec/processed/for-rerec/testing
+      --output_path: $ROOT_DATA/for-rerec/processed/manifest_for-rerec.csv
 
   - name: playback-attacks
     script_path: preprocessing/prep_playback-attacks.py
