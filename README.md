@@ -7,11 +7,11 @@
   <img alt="Issues" src="https://github.com/zhu00121/AUDDT/issues">
 </p>
 
-**AUDDT** is a benchmark toolkit for audio deepfake detection. The landscape of audio deepfake detection is fragmented with numerous datasets, each having its own data format and evaluation protocol. AUDIT addresses this by providing a unified platform to seamlessly benchmark pretrained models against a wide variety of public datasets.
+**AUDDT** is a benchmark toolkit for audio deepfake detection. The landscape of audio deepfake detection is fragmented with numerous datasets, each having its own data format and evaluation protocol. AUDDT addresses this by providing a unified platform to seamlessly benchmark pretrained models against a wide variety of public datasets.
 
 The current version includes standardized preparation scripts for **27+ datasets**.
 
-![AUDiT Workflow Diagram](assets/audit_workflow.png)
+![AUDDT Workflow Diagram](assets/auddt_workflow.png)
 ---
 
 ## Table of Contents
@@ -31,17 +31,17 @@ The full list of 27+ supported datasets is maintained in a public Google Sheet f
 ➡️ **[View Full Dataset List on Google Sheets](https://docs.google.com/spreadsheets/d/1amUSrwiUk3DpiuxcxNuSE-xB77aPApSug2A0FTuvwD4/edit?usp=sharing)**
 
 ## Update Log
-We are actively developing AUDIT. See below for the latest updates.
+We are actively developing AUDDT. See below for the latest updates.
 * **2025-09-19**
-    * Birth of AUDIT
+    * Birth of AUDDT
     * Added 27 datasets to the benchmark
     * Added an examplar baseline model
 
 ## Installation
 1.  Clone the repository:
     ```bash
-    git clone [https://github.com/your_username/AUDIT.git](https://github.com/your_username/AUDIT.git)
-    cd AUDIT
+    git clone [https://github.com/zhu00121/AUDDT.git](https://github.com/zhu00121/AUDDT.git)
+    cd AUDDT
     ```
 
 2.  Create a virtual environment (recommended):
@@ -66,6 +66,16 @@ Use the following scripts for downloading dataset:
 chmod +x download/*.sh
 ./download_XXX.sh # change XXX to dataset name
 ```
+By default, a `data` folder will be created under `AUDDT/` with the following folder structure:
+```bash
+data/
+  DATASET_X/
+    processed/
+      audio/ # audio files extracted from the compressed raw file
+      manifest_X.csv # manifest file created in step-2
+    raw/
+      X.zip # raw compressed files downloaded from source. some time this could be several files.
+```
 
 ### Step-2: Prepare label files
 Once datasets are downloaded, we use the following script to prepare manifest files:
@@ -75,7 +85,23 @@ python prep_all_datasets.py --config dataset_list.yaml
 You can change the list of datasets you need in the `dataset_list.yaml` file.
 
 ### Step-3: Migrate the pretrained model
-Put your model script inside of `models` folder, and have the hyperparams defined in `benchmark/evaluate_setup.yaml`. See an examplar pretrained model in `models/baseline_model.py`, its hyperparams are defined in the `model` section in `benchmark/evaluate_setup.yaml`.
+Put your model script inside of `models` folder, and have the hyperparams defined in `benchmark/evaluate_setup.yaml`:
+
+```bash
+model:
+  # Path to the model's .py file.
+  path: models/YOUR_MODEL_SCRIPT.py
+  # Name of the model class within the .py file.
+  class_name: YOUR_MODEL_CLASS_NAME
+  # Path to the pretrained model checkpoint (.pth or similar).
+  checkpoint: models/YOUR_CKPT.pth
+  device: 'cuda:0'
+
+  # These key-value pairs will be passed directly to your model's __init__ method.
+  # Example: if your model is `def __init__(self, num_layers):`
+  model_args:
+    num_layers: 12
+```
 
 ### Step-4: Run evaluation
 ```bash
@@ -87,8 +113,8 @@ While the team will keep updating the benchmark coverage, it is highly encourage
 
 ## Citation
 ```
-@inproceedings{yourname2025audit,
-  title={{AUDiT: An Open Benchmark Toolkit for Audio Deepfake Detection}},
+@inproceedings{yourname2025AUDDT,
+  title={{AUDDT: An Open Benchmark Toolkit for Audio Deepfake Detection}},
   author={Your Name and Co-authors},
   booktitle={Conference Name},
   year={2025}
