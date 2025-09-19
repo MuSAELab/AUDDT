@@ -2,3 +2,6 @@
 data/
 *.csv
 *.txt
+*.pt
+*.pth
+__pycache__

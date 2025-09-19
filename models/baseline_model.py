@@ -430,9 +430,9 @@ class Residual_block(nn.Module):
 
 
 class Model(nn.Module):
-    def __init__(self, args,device):
+    def __init__(self, args=None, model_device='cuda'):
         super().__init__()
-        self.device = device
+        self.device = model_device
         
         # AASIST parameters
         filts = [128, [1, 32], [32, 32], [32, 64], [64, 64]]

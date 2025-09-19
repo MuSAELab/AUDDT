@@ -6,11 +6,19 @@
 # -------------------------------------------------------------------
 model:
   # Path to the model's .py file.
-  path: models/custom_wav2vec_model.py
+  path: models/baseline_model.py
   # Name of the model class within the .py file.
-  class_name: Wav2Vec2Model
+  class_name: Model
   # Path to the pretrained model checkpoint (.pth or similar).
-  checkpoint: /path/to/your/model_checkpoint.pth
+  checkpoint: models/Best_LA_model_for_DF.pth
+  device: 'cuda:7'
+
+  # These key-value pairs will be passed directly to the model's __init__ method.
+  # This allows you to use the same loader for models with different initializations.
+  # Example: if your model is `def __init__(self, num_layers, device, **kwargs):`
+  model_args:
+    args: null
+    model_device: 'cuda:7'
 
 
 # 2. DATA CONFIGURATION: Specify which dataset(s) to evaluate on.
@@ -20,13 +28,14 @@ model:
 # To use a dataset group, fill in `group_name` and leave `manifest_path` as null.
 data:
   # --- Option A: For a single dataset run ---
-  manifest_path: null # e.g., "data/manifests/asvspoof2019.csv"
-  
-  # --- Option B: For a group run ---
-  group_name: cross_corpus_eval # e.g., "tts_focused_eval"
+  manifest_path: data/Codecfake/processed/manifest_Codecfake.csv # e.g., "data/manifests/asvspoof2019.csv"
+  group_name: null
 
-  # Path to the YAML file that defines your dataset groups.
-  groups_config_path: benchmarks/hparams/dataset_groups.yaml
+  # # --- Option B: For a group run ---
+  # group_name: real_and_fake # e.g., "real_and_fake"
+
+  # # Path to the YAML file that defines your dataset groups.
+  # groups_config_path: benchmarks/hparams/dataset_groups.yaml
 
 
 # 3. EVALUATION SETTINGS: Control the output and runtime parameters.
@@ -38,4 +47,4 @@ evaluation_settings:
   batch_size: 16
   # Optional: If you provide a path here, a LaTeX .tex file with a results
   # table will be generated automatically. Leave as null to disable.
-  latex_output_path: results/my_model_on_cross_corpus_results.tex # e.g., null
+  latex_output_path: results/examplar_table.tex # e.g., null

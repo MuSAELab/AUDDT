@@ -10,6 +10,18 @@ datasets:
       --source_dir: $ROOT_DATA/Codecfake/processed
       --output_path: $ROOT_DATA/Codecfake/processed/manifest_Codecfake.csv
 
+  # - name: CodecFake
+  #   script_path: preprocessing/prep_CodecFake.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/CodecFake/processed
+  #     --output_path: $ROOT_DATA/CodecFake/processed/manifest_CodecFake.csv
+
+  - name: in-the-wild
+    script_path: preprocessing/prep_itw.py
+    args:
+      --source_dir: $ROOT_DATA/in-the-wild/processed/release_in_the_wild/
+      --output_path: $ROOT_DATA/in-the-wild/processed/manifest_itw.csv
+
   - name: mlaad-v5
     script_path: preprocessing/prep_mlaad.py
     args:
