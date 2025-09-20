@@ -1,10 +1,12 @@
 # AUDDT: Audio Unified Deepfake Detection Benchmark Toolkit
 
 <p align="center">
-  <img alt="License" src="https://img.shields.io/badge/License-CC_BY--NC_4.0-orange.svg">
+  <img alt="License" src="https://img.shields.io/badge/License-Research--Use--Only-blue.svg">
   <img alt="Python" src="https://img.shields.io/badge/Python-3.8+-green.svg">
   <img alt="Paper" src="https://img.shields.io/badge/arXiv-xxxx.xxxxx-b31b1b.svg">
-  <img alt="Issues" src="https://github.com/zhu00121/AUDDT/issues">
+  <a href="https://github.com/zhu00121/AUDDT/issues">
+    <img alt="Issues" src="https://img.shields.io/github/issues/zhu00121/AUDDT">
+  </a>
 </p>
 
 **AUDDT** is a benchmark toolkit for audio deepfake detection. The landscape of audio deepfake detection is fragmented with numerous datasets, each having its own data format and evaluation protocol. AUDDT addresses this by providing a unified platform to seamlessly benchmark pretrained models against a wide variety of public datasets.
@@ -122,7 +124,9 @@ While the team will keep updating the benchmark coverage, it is highly encourage
 ```
 
 ## License
-This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.
+This project is licensed for **academic and research use only**.  
+Commercial use is **strictly prohibited** without prior written permission.  
+See the full [LICENSE](./LICENSE) file for details.
 
 ## Disclaimer
 We do not include any proprietary datasets or the ones with unknown sources for transparency. We also encourage users to be careful with the potential training/test overlap, e.g., some datasets like ASVspoof2019 / ASVspoof5 are widely used as training sets. Results obtained with this toolkit should solely be used for research purposes instead of advertisement for commercial usage.
