@@ -1,23 +1,128 @@
-# AUDiT: An Open Benchmark Toolkit for Audio Deepfake Detection
-AUDiT is a toolkit that allows to easily benchmark pretrained audio deepfake detection models on a wide variety of publicly available audio deepfake datasets. The current version includes 27 datasets as of Jan 2025. 
+# AUDDT: Audio Unified Deepfake Detection Benchmark Toolkit
 
-## Start Benchmarking
-Follow the steps below to benchmark your pre-trained deepfake detector:
+<p align="center">
+  <img alt="License" src="https://img.shields.io/badge/License-CC_BY--NC_4.0-orange.svg">
+  <img alt="Python" src="https://img.shields.io/badge/Python-3.8+-green.svg">
+  <img alt="Paper" src="https://img.shields.io/badge/arXiv-xxxx.xxxxx-b31b1b.svg">
+  <img alt="Issues" src="https://github.com/zhu00121/AUDDT/issues">
+</p>
+
+**AUDDT** is a benchmark toolkit for audio deepfake detection. The landscape of audio deepfake detection is fragmented with numerous datasets, each having its own data format and evaluation protocol. AUDDT addresses this by providing a unified platform to seamlessly benchmark pretrained models against a wide variety of public datasets.
+
+The current version includes standardized preparation scripts for **27+ datasets**.
+
+![AUDDT Workflow Diagram](assets/auddt_workflow.png)
+---
+
+## Table of Contents
+- [Supported Datasets](#supported-datasets)
+- [Update log](#update-log)
+- [Installation](#installation)
+- [Benchmarking Your Detector](#benchmarking-your-detector)
+- [Contributing](#contributing)
+- [Disclaimer](#disclaimer)
+- [Citation](#citation)
+- [License](#license)
+
+## Supported Datasets
+
+The full list of 27+ supported datasets is maintained in a public Google Sheet for easy viewing and filtering.
+
+➡️ **[View Full Dataset List on Google Sheets](https://docs.google.com/spreadsheets/d/1amUSrwiUk3DpiuxcxNuSE-xB77aPApSug2A0FTuvwD4/edit?usp=sharing)**
+
+## Update Log
+We are actively developing AUDDT. See below for the latest updates.
+* **2025-09-19**
+    * Birth of AUDDT
+    * Added 27 datasets to the benchmark
+    * Added an examplar baseline model
+
+## Installation
+1.  Clone the repository:
+    ```bash
+    git clone [https://github.com/zhu00121/AUDDT.git](https://github.com/zhu00121/AUDDT.git)
+    cd AUDDT
+    ```
+
+2.  Create a virtual environment (recommended):
+    ```bash
+    python3 -m venv venv
+    source venv/bin/activate
+    ```
+
+3.  Install the required dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+## Benchmarking Your Detector
+Follow the steps below to benchmark your pre-trained deepfake detector.
+
 ### Step-1: Download datasets
-We provide shell scripts to download datasets from the original source links. These scripts can be found in the `download` folder. 
+Change root folder in `download/config.sh` to your own. This is where all the data will be downloaded and stored.
 
-Run `chmod +x download/*.sh`. Then edit the data root folder in `config.sh`, this ROOT path will be the parent folder of all evaluation data. Then either run `get_everything.sh` to download all datasets (pls check if you have enough disk space here), OR run individual `.sh` files to download the ones you need.
+Use the following scripts for downloading dataset:
+```bash
+chmod +x download/*.sh
+./download_XXX.sh # change XXX to dataset name
+```
+By default, a `data` folder will be created under `AUDDT/` with the following folder structure:
+```bash
+data/
+  DATASET_X/
+    processed/
+      audio/ # audio files extracted from the compressed raw file
+      manifest_X.csv # manifest file created in step-2
+    raw/
+      X.zip # raw compressed files downloaded from source. some time this could be several files.
+```
 
 ### Step-2: Prepare label files
-Since each of these datasets have slightly different label file format, we provide interface scripts to translate them into the desired format, which are ingested by the evaluation script. These label preparation scripts can be found in the `prepare_datasets` folder.
+Once datasets are downloaded, we use the following script to prepare manifest files:
+```bash
+python prep_all_datasets.py --config dataset_list.yaml
+```
+You can change the list of datasets you need in the `dataset_list.yaml` file.
 
-### Step-3: Load your model and start evaluation
+### Step-3: Migrate the pretrained model
+Put your model script inside of `models` folder, and have the hyperparams defined in `benchmark/evaluate_setup.yaml`:
 
+```bash
+model:
+  # Path to the model's .py file.
+  path: models/YOUR_MODEL_SCRIPT.py
+  # Name of the model class within the .py file.
+  class_name: YOUR_MODEL_CLASS_NAME
+  # Path to the pretrained model checkpoint (.pth or similar).
+  checkpoint: models/YOUR_CKPT.pth
+  device: 'cuda:0'
 
-## Addition of new datasets
-While the team will keep updating the benchmark coverage, it is highly encouraged to suggest dataset addition via creating an issue and point us to the source link and paper.  
+  # These key-value pairs will be passed directly to your model's __init__ method.
+  # Example: if your model is `def __init__(self, num_layers):`
+  model_args:
+    num_layers: 12
+```
+
+### Step-4: Run evaluation
+```bash
+python evaluate.py --config benchmark/evaluate_setup.yaml
+```
+
+## Contributing
+While the team will keep updating the benchmark coverage, it is highly encouraged to suggest dataset addition via creating an issue and point us to the source link and paper.
+
+## Citation
+```
+@inproceedings{yourname2025AUDDT,
+  title={{AUDDT: An Open Benchmark Toolkit for Audio Deepfake Detection}},
+  author={Your Name and Co-authors},
+  booktitle={Conference Name},
+  year={2025}
+}
+```
+
+## License
+This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.
 
 ## Disclaimer
 We do not include any proprietary datasets or the ones with unknown sources for transparency. We also encourage users to be careful with the potential training/test overlap, e.g., some datasets like ASVspoof2019 / ASVspoof5 are widely used as training sets. Results obtained with this toolkit should solely be used for research purposes instead of advertisement for commercial usage.
-
-## License

@@ -4,20 +4,15 @@
 source ./download/config.sh
 
 DEST="$ROOT/habla"
-mkdir -p "$DEST"
+mkdir -p "$DEST/raw"
+mkdir -p "$DEST/processed"
 
+# Download the dataset using gdown
+echo "Downloading HABLA dataset..."
+# gdown --folder "https://drive.google.com/drive/folders/1hEYYt1LHuCxsT8fgNyVfbegDl1zSkIUJ" \
+#       -O "$DEST/processed" --remaining-ok
 
-REMOTE_NAME="gdrive"
-FOLDER_ID="1hEYYt1LHuCxsT8fgNyVfbegDl1zSkIUJ"
+gdown 10HeHTCCMJAYVoUAlZyV6B4oJP7JISPQz -O $DEST/raw/protocol.txt
 
+echo " --- Download and extraction of HABLA complete. Files are in $DEST ---"
 
-echo "Starting HABLA download via rclone..."
-rclone copy "$REMOTE_NAME":"$FOLDER_ID" "$DEST" --progress --transfers 16 --checkers 16
-
-for zipfile in "$DEST"/*.zip; do
-    [ -f "$zipfile" ] || continue
-    echo "Extracting $zipfile..."
-    unzip -o "$zipfile" -d "$DEST"
-done
-
-echo " --- HABLA download and extraction complete ---"
