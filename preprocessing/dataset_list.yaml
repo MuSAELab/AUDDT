@@ -28,12 +28,18 @@ datasets:
   #     --source_dir: $ROOT_DATA/cvoicefake/processed/CVoiceFake_Large
   #     --output_path: $ROOT_DATA/cvoicefake/processed/manifest_cvoicefake.csv
   
-  - name: habla
-    script_path: preprocessing/prep_habla.py
+  # - name: habla
+  #   script_path: preprocessing/prep_habla.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/habla/processed/eval
+  #     --label_file: $ROOT_DATA/habla/raw/protocol.txt
+  #     --output_path: $ROOT_DATA/habla/processed/manifest_habla.csv
+  
+  - name: diffuseorconfuse
+    script_path: preprocessing/prep_diffuse-or-confuse.py
     args:
-      --source_dir: $ROOT_DATA/habla/processed/eval
-      --label_file: $ROOT_DATA/habla/raw/protocol.txt
-      --output_path: $ROOT_DATA/habla/processed/manifest_habla.csv
+      --source_dir: $ROOT_DATA/diffuse_or_confuse/processed
+      --output_path: $ROOT_DATA/diffuse_or_confuse/manifest_diffuse-or-confuse.csv
 
   # - name: in-the-wild
   #   script_path: preprocessing/prep_itw.py
