@@ -1,0 +1,9 @@
+pandas==2.3.2
+numpy==1.26.4
+tqdm==4.67.1
+torch==2.8.0
+torchaudio==2.8.0
+sox==1.5.0
+speechbrain==1.0.3
+pyarrow==21.0.0
+fastparquet==2024.11.0

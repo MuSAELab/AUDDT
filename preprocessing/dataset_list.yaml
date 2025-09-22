@@ -35,11 +35,11 @@ datasets:
       --label_file: $ROOT_DATA/habla/raw/protocol.txt
       --output_path: $ROOT_DATA/habla/processed/manifest_habla.csv
   
-  - name: diffuseorconfuse
-    script_path: preprocessing/prep_diffuse-or-confuse.py
-    args:
-      --source_dir: $ROOT_DATA/diffuse_or_confuse/processed
-      --output_path: $ROOT_DATA/diffuse_or_confuse/manifest_diffuse-or-confuse.csv
+  # - name: diffuseorconfuse
+  #   script_path: preprocessing/prep_diffuse-or-confuse.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/diffuse_or_confuse/processed
+  #     --output_path: $ROOT_DATA/diffuse_or_confuse/manifest_diffuse-or-confuse.csv
 
   - name: in-the-wild
     script_path: preprocessing/prep_itw.py
@@ -87,3 +87,65 @@ datasets:
       --label_file: $ROOT_DATA/playback_attacks/processed/metadata.csv
       --output_path: manifest/playback-attacks.csv
 
+  # - name: decro
+  #   script_path: preprocessing/prep_decro.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/decro/processed
+  #     --output_path: $ROOT_DATA/decro/manifest_decro.csv
+
+  # - name: dfadd
+  #   script_path: preprocessing/prep_dfadd.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/dfadd/raw
+  #     --dest_dir: $ROOT_DATA/dfadd/processed
+  #     --output_path: $ROOT_DATA/dfadd/manifest_dfadd.csv
+
+  # - name: diffssd
+  #   script_path: preprocessing/prep_diffssd.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/diffssd/processed
+  #     --label_file: $ROOT_DATA/diffssd/processed/train_val_test_splits.csv
+  #     --output_path: $ROOT_DATA/diffssd/manifest_diffssd.csv
+
+  # - name: enhancespeech
+  #   script_path: preprocessing/prep_enhancespeech.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/enhancespeech/processed
+  #     --output_path: $ROOT_DATA/enhancespeech/manifest_enhancespeech.csv
+
+  - name: wavefake
+    script_path: preprocessing/prep_wavefake.py
+    args:
+      --source_dir: $ROOT_DATA/wavefake/processed
+      --output_path: $ROOT_DATA/wavefake/manifest_wavefake.csv
+
+  # - name: ctrsvdd
+  #   script_path: preprocessing/prep_ctrsvdd.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/ctrsvdd/processed
+  #     --output_path: $ROOT_DATA/ctrsvdd/manifest_ctrsvdd.csv
+
+  # - name: mscenespeech
+  #   script_path: preprocessing/prep_mscenespeech.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/mscenespeech/processed
+  #     --output_path: $ROOT_DATA/mscenespeech/manifest_mscenespeech.csv
+
+  # - name: src4vc
+  #   script_path: preprocessing/prep_src4vc.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/src4vc/processed
+  #     --output_path: $ROOT_DATA/src4vc/manifest_src4vc.csv
+
+  # - name: timittts
+  #   script_path: preprocessing/prep_timittts.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/timittts/processed
+  #     --output_path: $ROOT_DATA/timittts/manifest_timittts.csv
+
+  # - name: ctrsvdd
+  #   script_path: preprocessing/prep_ctrsvdd.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/ctrsvdd/processed
+  #     --label_file: $ROOT_DATA/ctrsvdd/processed/test.txt
+  #     --output_path: $ROOT_DATA/ctrsvdd/manifest_ctrsvdd.csv
