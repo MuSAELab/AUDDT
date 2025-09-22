@@ -17,7 +17,7 @@ class AudioDeepfakeDetector(nn.Module):
         raw_output = self.model(x)
         if raw_output.dim() > 1 and raw_output.size(1) > 1:
             # Assumes the score for the positive class (e.g., fake) is the second neuron
-            score = raw_output[:, 1]
+            score = raw_output[:, 0]
         else:
             score = raw_output.squeeze()
         return score

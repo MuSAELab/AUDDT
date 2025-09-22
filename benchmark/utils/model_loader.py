@@ -69,7 +69,7 @@ def load_model_from_path(model_py_path, model_class_name, checkpoint_path, devic
             
             # Load the state dictionary
             print(f"Loading checkpoint from: {checkpoint_path}")
-            state_dict = torch.load(checkpoint_path, map_location='cpu')
+            state_dict = torch.load(checkpoint_path, map_location=device)
             
             # Handle potential DataParallel wrapper keys (e.g., 'module.')
             if list(state_dict.keys())[0].startswith('module.'):

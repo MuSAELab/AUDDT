@@ -28,6 +28,8 @@ def run_evaluation(model, dataloader, device):
                 continue
             
             waveforms = waveforms.to(device)
+            
+            # Get model predictions using the wrapper's method
             scores = model.get_prediction_score(waveforms)
             
             all_scores.extend(scores.cpu().numpy().flatten())
@@ -120,6 +122,12 @@ def main(config):
         
         # Calculate metrics
         metrics = calculate_metrics(labels, scores)
+        
+        # Convert all metric values to standard Python floats before saving
+        for key, value in metrics.items():
+            if isinstance(value, (np.float32, np.float64, np.int32, np.int64)):
+                metrics[key] = float(value)
+        
         group_results[dataset_name] = metrics
         
         print(f"Results for {dataset_name}:")
@@ -148,11 +156,11 @@ def main(config):
         valid_results = [m for m in group_results.values() if m['eer'] != -1]
         
         if valid_results:
-            avg_eer = np.mean([m['eer'] for m in valid_results])
-            avg_auc = np.mean([m['auc'] for m in valid_results])
-            avg_acc = np.mean([m['accuracy'] for m in valid_results])
-            avg_tpr = np.mean([m['tpr'] for m in valid_results])
-            avg_tnr = np.mean([m['tnr'] for m in valid_results])
+            avg_eer = float(np.mean([m['eer'] for m in valid_results]))
+            avg_auc = float(np.mean([m['auc'] for m in valid_results]))
+            avg_acc = float(np.mean([m['accuracy'] for m in valid_results]))
+            avg_tpr = float(np.mean([m['tpr'] for m in valid_results]))
+            avg_tnr = float(np.mean([m['tnr'] for m in valid_results]))
             
             print("---------------------------------")
             print("Average Metrics (for multi-class datasets):")
@@ -161,6 +169,13 @@ def main(config):
         else:
             print("---------------------------------")
             print("No multi-class datasets were evaluated to calculate average metrics.")
+            
+        # Add average metrics to the group results for saving
+        if valid_results:
+             group_results['Average'] = {
+                'eer': avg_eer, 'auc': avg_auc, 'accuracy': avg_acc,
+                'tpr': avg_tpr, 'tnr': avg_tnr,
+             }
 
     # --- Save consolidated metrics to a YAML file ---
     run_name = data_cfg.get('group_name') or os.path.basename(data_cfg['manifest_path']).split('.')[0]

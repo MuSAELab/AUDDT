@@ -4,6 +4,8 @@
 ROOT_DATA: ./data
 
 datasets:
+  - name: asvspoof2019
+    script_path: $ROOT_DATA/asvspoof2019/processed/LA
   - name: jvnv
     script_path: preprocessing/prep_jvnv.py
     args:

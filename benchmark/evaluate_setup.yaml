@@ -7,7 +7,7 @@ model:
   class_name: AudioDeepfakeDetector
   # The checkpoint path remains the same as it's passed through the wrapper.
   checkpoint: models/Best_LA_model_for_DF.pth
-  device: 'cuda:7'
+  device: 'cuda:0'
 
   # These key-value pairs will be passed directly to the model's __init__ method.
   # This section now holds the configuration for the *raw* model that the wrapper uses.
@@ -26,7 +26,7 @@ model:
 # To use a dataset group, fill in `group_name` and leave `manifest_path` as null.
 data:
   # --- Option A: For a single dataset run ---
-  manifest_path: data/Codecfake/processed/manifest_Codecfake.csv # e.g., "data/manifests/asvspoof2019.csv"
+  manifest_path: data/for-original/processed/manifest_for-original.csv # e.g., "data/for-original/processed/manifest_for-original.csv"
   group_name: null
 
   # # --- Option B: For a group run ---
@@ -46,7 +46,7 @@ evaluation_settings:
   # Directory where all results (scores, metrics, tables) will be saved.
   results_dir: results
   # Batch size for the dataloader.
-  batch_size: 16
+  batch_size: 256
   # Optional: If you provide a path here, a LaTeX .tex file with a results
   # table will be generated automatically. Leave as null to disable.
   latex_output_path: results/examplar_table.tex # e.g., null
