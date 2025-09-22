@@ -1,36 +1,46 @@
-# First, download the dataset from the Google Drive repository
-# Insert in a folder called "enhancespeech/raw" inside your data root
-# Unzip the compressed file and delete the zip file
+# First, download the dataset (only the test folder) from the Google Drive repository
+# by following: http://hguimaraes.me/DiTSE
+# Insert the zip file in a folder called "enhancespeech/raw" inside your data root
+# Unzip the compressed file and insert in a folder called "enhancespeech/processed" inside your data root.
+# In the end, your folder structure should be like this:
+#
+# data_root/
+#  ├── enhancespeech/
+#  │   ├── raw/
+#  │   │   └── DiTSE_Results-download_datetime.zip
+#  │   ├── processed/
+#  │   │   └── DiTSE_Results/
+#  │   │       └── **/*.wav
+#  │   └── manifest_enhancespeech.csv
+#  └── ...
+# Note: the manifest_enhancespeech.csv file will be created with this script
 
 import io
 import os
-import sys
-import shutil
+import argparse
 import pandas as pd
 from glob import glob
 from tqdm import tqdm
 
 import torchaudio
-import speechbrain as sb
-from hyperpyyaml import load_hyperpyyaml
 
 
-def main(data_folder: str, dest_folder: str, manifest_file: str):
-    test_files_demo = glob(os.path.join(data_folder, "DiTSE_Results/DEMO_SE_results_MOS", "**/*.wav"), recursive=True)
-    test_files_demo = pd.DataFrame(test_files_demo, columns=["original_wav_path"])
-    test_files_demo = test_files_demo[test_files_demo["original_wav_path"].str.contains(
+def prepare_dataset(source_dir: str, output_path: str):
+    test_files_demo = glob(os.path.join(source_dir, "DiTSE_Results/DEMO_SE_results_MOS", "**/*.wav"), recursive=True)
+    test_files_demo = pd.DataFrame(test_files_demo, columns=["wav_path"])
+    test_files_demo = test_files_demo[test_files_demo["wav_path"].str.contains(
         "ditse-base-dac-16k|genhancer-16k|hifigan2-16k|miipher-16k|sgmseplus-16k|input-16k"
     )]
 
-    test_files_aqecc = glob(os.path.join(data_folder, "DiTSE_Results/AQECC_SE_results_MOS", "**/*.wav"), recursive=True)
-    test_files_aqecc = pd.DataFrame(test_files_aqecc, columns=["original_wav_path"])
-    test_files_aqecc = test_files_aqecc[test_files_aqecc["original_wav_path"].str.contains(
+    test_files_aqecc = glob(os.path.join(source_dir, "DiTSE_Results/AQECC_SE_results_MOS", "**/*.wav"), recursive=True)
+    test_files_aqecc = pd.DataFrame(test_files_aqecc, columns=["wav_path"])
+    test_files_aqecc = test_files_aqecc[test_files_aqecc["wav_path"].str.contains(
         "ditse-base-dac-16k|genhancer-16k|hifigan2-16k|miipher-16k|sgmseplus-16k|input-16k"
     )]
 
-    test_files_daps = glob(os.path.join(data_folder, "DiTSE_Results/DAPS_SE_results_MOS", "**/*.wav"), recursive=True)
-    test_files_daps = pd.DataFrame(test_files_daps, columns=["original_wav_path"])
-    test_files_daps = test_files_daps[test_files_daps["original_wav_path"].str.contains(
+    test_files_daps = glob(os.path.join(source_dir, "DiTSE_Results/DAPS_SE_results_MOS", "**/*.wav"), recursive=True)
+    test_files_daps = pd.DataFrame(test_files_daps, columns=["wav_path"])
+    test_files_daps = test_files_daps[test_files_daps["wav_path"].str.contains(
         "clean-44k|ditse-base-dac-44k|genhancer-44k|hifigan2-44k|miipher-22k|sgmseplus-48k|input-44k"
     )]
 
@@ -38,41 +48,32 @@ def main(data_folder: str, dest_folder: str, manifest_file: str):
     test_set = pd.concat([test_files_demo, test_files_aqecc, test_files_daps])
     test_set["target"] = "bonafide"
 
-    # Create the destination folder if it doesn't exist
-    os.makedirs(dest_folder, exist_ok=True)
-
-    dest_wav_path_list = []
     duration_list = []
     for _, row in tqdm(test_set.iterrows(), total=len(test_set), desc="Preprocessing EnhanceSpeech"):
-        # Save the audio file to dest_folder
-        dest_wav_path = row["original_wav_path"].replace(data_folder, dest_folder)
-        os.makedirs(os.path.dirname(dest_wav_path), exist_ok=True)
-
-        shutil.copy2(row["original_wav_path"], dest_wav_path)
-
-        info = torchaudio.info(dest_wav_path)
+        info = torchaudio.info(row["wav_path"])
         duration = info.num_frames / info.sample_rate
         duration_list.append(duration)
-        dest_wav_path_list.append(dest_wav_path)
 
     # Save the manifest file
     test_set["duration"] = duration_list
-    test_set["wav_path"] = dest_wav_path_list
-    test_set[["wav_path", "duration", "target"]].to_csv(os.path.join(dest_folder, manifest_file), index=False)
+    test_set[["wav_path", "duration", "target"]].to_csv(output_path, index=False)
 
 if __name__ == "__main__":
-    # Reading command line arguments
-    hparams_file, run_opts, overrides = sb.parse_arguments(sys.argv[1:])
-
-    # Load hyperparameters file with command-line overrides
-    with open(hparams_file) as f:
-        hparams = load_hyperpyyaml(f, overrides)
-
-    if hparams.get("dest_folder") is None:
-        hparams["dest_folder"] = hparams["data_root"]
-
-    main(
-        data_folder=os.path.join(hparams["data_root"], "enhancespeech", "raw"),
-        dest_folder=os.path.join(hparams["dest_folder"], "enhancespeech", "processed"),
-        manifest_file=hparams["manifest_file"]
+    parser = argparse.ArgumentParser(
+        description="Prepare a dataset manifest for the EnhanceSpeech dataset."
     )
+    parser.add_argument(
+        '--source_dir',
+        type=str,
+        required=True,
+        help="The root directory of the EnhanceSpeech dataset."
+    )
+    parser.add_argument(
+        '--output_path',
+        type=str,
+        required=True,
+        help="The path to save the final manifest CSV file."
+    )
+    
+    args = parser.parse_args()
+    prepare_dataset(args.source_dir, args.output_path)

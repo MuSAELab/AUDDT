@@ -4,13 +4,16 @@
 
 source ./download/config.sh
 
-DEST="$ROOT/wavefake/raw"
+SRC="$ROOT/wavefake/raw"
+DEST="$ROOT/wavefake/processed"
+
+mkdir -p "$SRC"
 mkdir -p "$DEST"
 
 # Download the dataset only if it doesn't exist
-if [ ! -f $DEST/generated_audio.zip ]; then
+if [ ! -f $SRC/generated_audio.zip ]; then
     echo "Downloading WaveFake dataset..."
-    if ! wget -c -O $DEST/generated_audio.zip https://zenodo.org/records/5642694/files/generated_audio.zip; then
+    if ! wget -c -O $SRC/generated_audio.zip https://zenodo.org/records/5642694/files/generated_audio.zip; then
         echo "Error: Failed to download WaveFake dataset"
         exit 1
     fi
@@ -19,7 +22,7 @@ fi
 
 # Extract the dataset
 echo "Extracting dataset..."
-if ! unzip $DEST/generated_audio.zip -d $DEST; then
+if ! unzip $SRC/generated_audio.zip -d $DEST; then
     echo "Error: Failed to extract TIMIT-TTS dataset"
     exit 1
 fi
@@ -29,8 +32,5 @@ if [ ! "$(ls -A $DEST)" ]; then
     echo "Error: No files were extracted"
     exit 1
 fi
-
-# Remove the zip file only after successful extraction
-rm $DEST/generated_audio.zip
 
 echo " --- WaveFake download complete. Files saved in $DEST ---"

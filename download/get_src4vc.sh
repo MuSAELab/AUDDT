@@ -4,13 +4,16 @@
 
 source ./download/config.sh
 
-DEST="$ROOT/src4vc/raw"
+SRC="$ROOT/src4vc/raw"
+DEST="$ROOT/src4vc/processed"
+
+mkdir -p "$SRC"
 mkdir -p "$DEST"
 
 # Download the dataset only if it doesn't exist
-if [ ! -f $DEST/SRC4VC_ver1.zip ]; then
+if [ ! -f $SRC/SRC4VC_ver1.zip ]; then
     echo "Downloading SRC4VC dataset..."
-    if ! wget -c -O $DEST/SRC4VC_ver1.zip http://sython.org/Corpus/SRC4VC/SRC4VC_ver1.zip; then
+    if ! wget -c -O $SRC/SRC4VC_ver1.zip http://sython.org/Corpus/SRC4VC/SRC4VC_ver1.zip; then
         echo "Error: Failed to download SRC4VC dataset"
         exit 1
     fi
@@ -19,7 +22,7 @@ fi
 
 # Extract the dataset
 echo "Extracting dataset..."
-if ! unzip $DEST/SRC4VC_ver1.zip -d $DEST; then
+if ! unzip $SRC/SRC4VC_ver1.zip -d $DEST; then
     echo "Error: Failed to extract SRC4VC dataset"
     exit 1
 fi
@@ -29,8 +32,5 @@ if [ ! "$(ls -A $DEST)" ]; then
     echo "Error: No files were extracted"
     exit 1
 fi
-
-# Remove the zip file only after successful extraction
-rm $DEST/SRC4VC_ver1.zip
 
 echo " --- SRC4VC download complete. Files saved in $DEST ---"

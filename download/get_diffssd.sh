@@ -3,40 +3,46 @@
 
 source ./download/config.sh
 
-DEST="$ROOT/diffssd/raw"
+SRC="$ROOT/diffssd/raw"
+DEST="$ROOT/diffssd/processed"
+
+mkdir -p "$SRC"
 mkdir -p "$DEST"
 
 # Download the generated data
-if [ ! -d $DEST/generated_speech ]; then
-    wget -c -O $DEST/generated_speech.tar https://huggingface.co/datasets/purdueviperlab/diffssd/resolve/main/generated_speech.tar
-    tar -xzvf $DEST/generated_speech.tar -C $DEST
-    rm $DEST/generated_speech.tar
+if [ ! -f $SRC/generated_speech.tar ]; then
+    wget -c -O $SRC/generated_speech.tar https://huggingface.co/datasets/purdueviperlab/diffssd/resolve/main/generated_speech.tar
 fi
+tar -xzvf $SRC/generated_speech.tar -C $DEST
 
 # Download the real data
-if [ ! -d $DEST/real_speech/LJSpeech-1.1 ]; then
-    mkdir -p $DEST/real_speech
-    wget -c -O $DEST/real_speech/LJSpeech-1.1.tar.bz2 https://data.keithito.com/data/speech/LJSpeech-1.1.tar.bz2
-    tar -xvjf $DEST/real_speech/LJSpeech-1.1.tar.bz2 -C $DEST/real_speech
-    rm $DEST/real_speech/LJSpeech-1.1.tar.bz2
+mkdir -p $SRC/real_speech
+mkdir -p $DEST/real_speech
+
+if [ ! -f $SRC/real_speech/LJSpeech-1.1.tar.bz2 ]; then
+    wget -c -O $SRC/real_speech/LJSpeech-1.1.tar.bz2 https://data.keithito.com/data/speech/LJSpeech-1.1.tar.bz2
 fi
+tar -xvjf $SRC/real_speech/LJSpeech-1.1.tar.bz2 -C $DEST/real_speech
 
-if [ ! -d $DEST/real_speech/LibriSpeech ]; then
-    wget -c -O $DEST/real_speech/dev-clean.tar.gz https://openslr.trmal.net/resources/12/dev-clean.tar.gz
-    wget -c -O $DEST/real_speech/dev-other.tar.gz https://openslr.trmal.net/resources/12/dev-other.tar.gz
-    wget -c -O $DEST/real_speech/test-clean.tar.gz https://openslr.trmal.net/resources/12/test-clean.tar.gz
-    wget -c -O $DEST/real_speech/test-other.tar.gz https://openslr.trmal.net/resources/12/test-other.tar.gz
-
-    tar -xzvf $DEST/real_speech/dev-clean.tar.gz -C $DEST/real_speech
-    tar -xzvf $DEST/real_speech/dev-other.tar.gz -C $DEST/real_speech
-    tar -xzvf $DEST/real_speech/test-clean.tar.gz -C $DEST/real_speech
-    tar -xzvf $DEST/real_speech/test-other.tar.gz -C $DEST/real_speech
-
-    rm $DEST/real_speech/dev-clean.tar.gz
-    rm $DEST/real_speech/dev-other.tar.gz
-    rm $DEST/real_speech/test-clean.tar.gz
-    rm $DEST/real_speech/test-other.tar.gz
+if [ ! -f $SRC/real_speech/dev-clean.tar.gz ]; then
+    wget -c -O $SRC/real_speech/dev-clean.tar.gz https://openslr.trmal.net/resources/12/dev-clean.tar.gz
 fi
+tar -xzvf $SRC/real_speech/dev-clean.tar.gz -C $DEST/real_speech
+
+if [ ! -f $SRC/real_speech/dev-other.tar.gz ]; then
+    wget -c -O $SRC/real_speech/dev-other.tar.gz https://openslr.trmal.net/resources/12/dev-other.tar.gz
+fi
+tar -xzvf $SRC/real_speech/dev-other.tar.gz -C $DEST/real_speech
+
+if [ ! -f $SRC/real_speech/test-clean.tar.gz ]; then
+    wget -c -O $SRC/real_speech/test-clean.tar.gz https://openslr.trmal.net/resources/12/test-clean.tar.gz
+fi
+tar -xzvf $SRC/real_speech/test-clean.tar.gz -C $DEST/real_speech
+
+if [ ! -f $SRC/real_speech/test-other.tar.gz ]; then
+    wget -c -O $SRC/real_speech/test-other.tar.gz https://openslr.trmal.net/resources/12/test-other.tar.gz
+fi
+tar -xzvf $SRC/real_speech/test-other.tar.gz -C $DEST/real_speech
 
 # Download the train_val_test_splits.csv file
 if [ ! -f $DEST/train_val_test_splits.csv ]; then

@@ -1,16 +1,14 @@
 import os
-import sys
 import shutil
+import argparse
 import pandas as pd
 from tqdm import tqdm
 
 import torchaudio
-import speechbrain as sb
-from hyperpyyaml import load_hyperpyyaml
 
 
-def main(data_folder: str, dest_folder: str, manifest_file: str):
-    train_val_test_splits = pd.read_csv(f"{data_folder}/train_val_test_splits.csv")
+def prepare_dataset(source_dir: str, label_file: str, output_path: str):
+    train_val_test_splits = pd.read_csv(label_file)
     test_set = train_val_test_splits[train_val_test_splits["set"] == "test"]
 
     # Replace "librispeech" with "LibriSpeech" in the filename column
@@ -18,36 +16,40 @@ def main(data_folder: str, dest_folder: str, manifest_file: str):
         .str.replace("librispeech", "LibriSpeech")\
         .str.replace("ljspeech", "LJSpeech-1.1/wavs")
 
-    # Create the destination folder if it doesn't exist
-    os.makedirs(dest_folder, exist_ok=True)
-
     duration_list = []
     for _, row in tqdm(test_set.iterrows(), total=len(test_set), desc="Preprocessing DIFFSSD"):
-        # Copy the file to the destination folder. Create the folder if it doesn't exist.
-        rel_dir = row["filename"]
-        os.makedirs(os.path.dirname(os.path.join(dest_folder, rel_dir)), exist_ok=True)
-        shutil.copy2(os.path.join(data_folder, rel_dir), os.path.join(dest_folder, rel_dir))
-
-        info = torchaudio.info(os.path.join(dest_folder, rel_dir))
+        info = torchaudio.info(os.path.join(source_dir, row["filename"]))
         duration = info.num_frames / info.sample_rate
         duration_list.append(duration)
 
     # Save the manifest file
     test_set["duration"] = duration_list
-    test_set["wav_path"] = test_set["filename"].apply(lambda x: os.path.join(dest_folder, x))
+    test_set["wav_path"] = test_set["filename"].apply(lambda x: os.path.join(source_dir, x))
     test_set["target"] = test_set["target"].apply(lambda x: "bonafide" if x == 0 else "spoof")
-    test_set[["wav_path", "duration", "target"]].to_csv(os.path.join(dest_folder, manifest_file), index=False)
+    test_set[["wav_path", "duration", "target"]].to_csv(output_path, index=False)
 
 if __name__ == "__main__":
-    # Reading command line arguments
-    hparams_file, run_opts, overrides = sb.parse_arguments(sys.argv[1:])
-
-    # Load hyperparameters file with command-line overrides
-    with open(hparams_file) as f:
-        hparams = load_hyperpyyaml(f, overrides)
-
-    main(
-        data_folder=os.path.join(hparams["data_root"], "diffssd", "raw"),
-        dest_folder=os.path.join(hparams["dest_folder"], "diffssd", "processed"),
-        manifest_file=hparams["manifest_file"]
+    parser = argparse.ArgumentParser(
+        description="Prepare a dataset manifest for the DIFFSSD dataset."
     )
+    parser.add_argument(
+        '--source_dir',
+        type=str,
+        required=True,
+        help="The root directory of the DIFFSSD dataset."
+    )
+    parser.add_argument(
+        '--label_file',
+        type=str,
+        required=True,
+        help="The path to the label file."
+    )
+    parser.add_argument(
+        '--output_path',
+        type=str,
+        required=True,
+        help="The path to save the final manifest CSV file."
+    )
+    
+    args = parser.parse_args()
+    prepare_dataset(args.source_dir, args.label_file, args.output_path)

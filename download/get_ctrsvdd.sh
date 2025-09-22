@@ -4,23 +4,26 @@
 
 source ./download/config.sh
 
-DEST="$ROOT/ctrsvdd/raw"
+SRC="$ROOT/ctrsvdd/raw"
+DEST="$ROOT/ctrsvdd/processed"
+
+mkdir -p "$SRC"
 mkdir -p "$DEST"
 
 # Download the dataset only if it doesn't exist
-if [ ! -f $DEST/test_set.zip ]; then
+if [ ! -f $SRC/test_set.zip ]; then
     echo "Downloading CTR-SVDD dataset..."
-    if ! wget -c -O $DEST/test_set.zip https://zenodo.org/records/12703261/files/test_set.zip; then
+    if ! wget -c -O $SRC/test_set.zip https://zenodo.org/records/12703261/files/test_set.zip; then
         echo "Error: Failed to download CTR-SVDD dataset"
         exit 1
     fi
     wget -c -O $DEST/test.txt https://zenodo.org/records/12703261/files/test.txt
-    echo "Download completed successfully"
+    echo "Label file downloaded successfully"
 fi
 
 # Extract the dataset
 echo "Extracting dataset..."
-if ! unzip $DEST/test_set.zip -d $DEST; then
+if ! unzip $SRC/test_set.zip -d $DEST; then
     echo "Error: Failed to extract CTR-SVDD dataset"
     exit 1
 fi
@@ -30,8 +33,5 @@ if [ ! "$(ls -A $DEST)" ]; then
     echo "Error: No files were extracted"
     exit 1
 fi
-
-# Remove the zip file only after successful extraction
-rm $DEST/test_set.zip
 
 echo " --- CTR-SVDD download complete. Files saved in $DEST ---"
