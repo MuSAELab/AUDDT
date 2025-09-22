@@ -3,20 +3,16 @@ import pandas as pd
 import numpy as np
 import yaml
 import argparse
-import os
-import sys
 from torch.utils.data import DataLoader
 from tqdm import tqdm
+import os
+import sys
 
-# Add the script's directory to the Python path to handle local imports
-script_dir = os.path.dirname(os.path.abspath(__file__))
-if script_dir not in sys.path:
-    sys.path.append(script_dir)
-
-from utils.data_loader import AudioManifestDataset
-from utils.metrics import calculate_metrics
-from utils.model_loader import load_model_from_path
-from generate_latex_table import generate_latex_from_metrics
+from benchmark.utils.data_loader import AudioManifestDataset
+from benchmark.utils.metrics import calculate_metrics
+from benchmark.utils.model_loader import load_model_from_path
+from benchmark.generate_latex_table import generate_latex_from_metrics
+from models.detector_wrapper import AudioDeepfakeDetector
 
 def run_evaluation(model, dataloader, device):
     """
@@ -32,9 +28,7 @@ def run_evaluation(model, dataloader, device):
                 continue
             
             waveforms = waveforms.to(device)
-            
-            # Get model predictions (assuming model returns raw scores/logits)
-            scores = model(waveforms)
+            scores = model.get_prediction_score(waveforms)
             
             all_scores.extend(scores.cpu().numpy().flatten())
             all_labels.extend(labels.numpy().flatten())
@@ -49,7 +43,7 @@ def main(config):
     model_cfg = config['model']
     data_cfg = config['data']
     eval_cfg = config['evaluation_settings']
-
+    
     # --- Device Configuration ---
     device_str = eval_cfg.get('device', 'auto')
     if device_str == 'auto':
@@ -75,15 +69,20 @@ def main(config):
     # Get model-specific arguments from the config, defaulting to an empty dict
     model_args = model_cfg.get('model_args', {})
     
-    # Load the pretrained detector
-    print(f"Loading model '{model_cfg['class_name']}' from '{model_cfg['checkpoint']}'...")
-    model = load_model_from_path(
-        model_cfg['path'], 
-        model_cfg['class_name'], 
-        model_cfg['checkpoint'], 
-        model_cfg['device'],
+    # Load the raw pretrained detector
+    print(f"Loading raw model '{model_cfg['class_name']}' from '{model_cfg['checkpoint']}'...")
+    raw_model = load_model_from_path(
+        model_py_path=model_cfg['path'], 
+        model_class_name=model_cfg['class_name'], 
+        checkpoint_path=model_cfg['checkpoint'], 
+        device=device,
         model_args=model_args,
     )
+
+    # Wrap the raw model with the new class
+    # Pass the raw_model object itself, not the config arguments
+    model = AudioDeepfakeDetector(raw_model)
+    model.to(device) # Ensure the wrapped model is on the correct device
 
     # Determine which datasets to evaluate
     datasets_to_evaluate = []
@@ -99,7 +98,10 @@ def main(config):
         datasets_to_evaluate = groups[group_name]
     else:
         raise ValueError("Config error: You must specify either 'manifest_path' or 'group_name' in the data section.")
-
+    
+    # Get dataset-specific arguments from the config, defaulting to an empty dict
+    data_args = data_cfg.get('data_args', {})
+    
     # --- Loop through each dataset and run the evaluation ---
     group_results = {}
     for dataset_info in datasets_to_evaluate:
@@ -111,7 +113,7 @@ def main(config):
             print(f"Warning: Manifest file not found at {manifest_path}. Skipping.")
             continue
             
-        dataset = AudioManifestDataset(manifest_path)
+        dataset = AudioManifestDataset(manifest_path, **data_args)
         dataloader = DataLoader(dataset, batch_size=eval_cfg['batch_size'], shuffle=False, num_workers=4)
         
         labels, scores = run_evaluation(model, dataloader, device)
@@ -188,4 +190,3 @@ if __name__ == '__main__':
     
     # Run the main evaluation logic with the loaded config
     main(config)
-

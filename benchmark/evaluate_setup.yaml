@@ -1,24 +1,22 @@
-# ===================================================================
-#               Configuration for the Evaluation Script
-# ===================================================================
-
 # 1. MODEL CONFIGURATION: Define the model to be benchmarked.
 # -------------------------------------------------------------------
 model:
-  # Path to the model's .py file.
-  path: models/baseline_model.py
-  # Name of the model class within the .py file.
-  class_name: Model
-  # Path to the pretrained model checkpoint (.pth or similar).
+  # Path to the model's .py file. Now points to the wrapper script.
+  path: models/detector_wrapper.py
+  # Name of the model class within the .py file. Now points to the wrapper class.
+  class_name: AudioDeepfakeDetector
+  # The checkpoint path remains the same as it's passed through the wrapper.
   checkpoint: models/Best_LA_model_for_DF.pth
   device: 'cuda:7'
 
   # These key-value pairs will be passed directly to the model's __init__ method.
-  # This allows you to use the same loader for models with different initializations.
-  # Example: if your model is `def __init__(self, num_layers, device, **kwargs):`
+  # This section now holds the configuration for the *raw* model that the wrapper uses.
   model_args:
-    args: null
-    model_device: 'cuda:7'
+    raw_model_path: models/baseline_model.py
+    raw_model_class_name: Model
+    raw_model_args: # Arguments for the raw model's __init__
+      args: null
+      model_device: 'cuda:7'
 
 
 # 2. DATA CONFIGURATION: Specify which dataset(s) to evaluate on.
@@ -37,6 +35,10 @@ data:
   # # Path to the YAML file that defines your dataset groups.
   # groups_config_path: benchmarks/hparams/dataset_groups.yaml
 
+  # --- Data loader hyperparameters ---
+  data_args:
+    target_sample_rate: 16000
+    target_length: 64000
 
 # 3. EVALUATION SETTINGS: Control the output and runtime parameters.
 # -------------------------------------------------------------------

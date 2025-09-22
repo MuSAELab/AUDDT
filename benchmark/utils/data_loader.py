@@ -9,18 +9,25 @@ class AudioManifestDataset(Dataset):
     A PyTorch Dataset for loading and preprocessing audio from a manifest file.
     Assumes a CSV with 'audio_path' and 'label' columns.
     """
-    def __init__(self, manifest_path, target_sample_rate=16000):
+    def __init__(self, manifest_path, target_sample_rate=16000, target_length=64000):
         """
         Initializes the dataset.
 
         Args:
             manifest_path (str): Path to the manifest CSV file.
             target_sample_rate (int): The target sample rate for all audio files.
+            target_length (int, optional): The fixed number of samples for all
+                                          waveforms. If None, no padding or
+                                          trimming is performed.
         """
-        self.df = pd.read_csv(manifest_path)
+        # Specify dtype for column 4 to prevent DtypeWarning
+        self.df = pd.read_csv(manifest_path, dtype={4: str})
         self.df['label'] = self.df['label'].apply(lambda x: 0 if x == 'bonafide' else 1)
-        # Instantiate the waveform processor
-        self.processor = WaveformProcessor(target_sample_rate=target_sample_rate)
+        # Instantiate the waveform processor with the target length
+        self.processor = WaveformProcessor(
+            target_sample_rate=target_sample_rate,
+            target_length=target_length
+        )
         
     def __len__(self):
         return len(self.df)
@@ -37,5 +44,3 @@ class AudioManifestDataset(Dataset):
         
         except Exception as e:
             print(f"Error loading or processing file {audio_path}: {e}")
-            # Return a dummy tensor and a special label on error
-            return torch.zeros(1, 16000), -1
