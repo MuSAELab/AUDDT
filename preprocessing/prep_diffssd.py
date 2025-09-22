@@ -24,9 +24,9 @@ def prepare_dataset(source_dir: str, label_file: str, output_path: str):
 
     # Save the manifest file
     test_set["duration"] = duration_list
-    test_set["wav_path"] = test_set["filename"].apply(lambda x: os.path.join(source_dir, x))
-    test_set["target"] = test_set["target"].apply(lambda x: "bonafide" if x == 0 else "spoof")
-    test_set[["wav_path", "duration", "target"]].to_csv(output_path, index=False)
+    test_set["audio_path"] = test_set["filename"].apply(lambda x: os.path.join(source_dir, x))
+    test_set["label"] = test_set["label"].apply(lambda x: "bonafide" if x == 0 else "spoof")
+    test_set[["audio_path", "duration", "label"]].to_csv(output_path, index=False)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(

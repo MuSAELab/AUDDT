@@ -27,36 +27,36 @@ import torchaudio
 
 def prepare_dataset(source_dir: str, output_path: str):
     test_files_demo = glob(os.path.join(source_dir, "DiTSE_Results/DEMO_SE_results_MOS", "**/*.wav"), recursive=True)
-    test_files_demo = pd.DataFrame(test_files_demo, columns=["wav_path"])
-    test_files_demo = test_files_demo[test_files_demo["wav_path"].str.contains(
+    test_files_demo = pd.DataFrame(test_files_demo, columns=["audio_path"])
+    test_files_demo = test_files_demo[test_files_demo["audio_path"].str.contains(
         "ditse-base-dac-16k|genhancer-16k|hifigan2-16k|miipher-16k|sgmseplus-16k|input-16k"
     )]
 
     test_files_aqecc = glob(os.path.join(source_dir, "DiTSE_Results/AQECC_SE_results_MOS", "**/*.wav"), recursive=True)
-    test_files_aqecc = pd.DataFrame(test_files_aqecc, columns=["wav_path"])
-    test_files_aqecc = test_files_aqecc[test_files_aqecc["wav_path"].str.contains(
+    test_files_aqecc = pd.DataFrame(test_files_aqecc, columns=["audio_path"])
+    test_files_aqecc = test_files_aqecc[test_files_aqecc["audio_path"].str.contains(
         "ditse-base-dac-16k|genhancer-16k|hifigan2-16k|miipher-16k|sgmseplus-16k|input-16k"
     )]
 
     test_files_daps = glob(os.path.join(source_dir, "DiTSE_Results/DAPS_SE_results_MOS", "**/*.wav"), recursive=True)
-    test_files_daps = pd.DataFrame(test_files_daps, columns=["wav_path"])
-    test_files_daps = test_files_daps[test_files_daps["wav_path"].str.contains(
+    test_files_daps = pd.DataFrame(test_files_daps, columns=["audio_path"])
+    test_files_daps = test_files_daps[test_files_daps["audio_path"].str.contains(
         "clean-44k|ditse-base-dac-44k|genhancer-44k|hifigan2-44k|miipher-22k|sgmseplus-48k|input-44k"
     )]
 
     # Filter files that not contain ["AQECC", "DEMO", "DAPS"] in their filename
     test_set = pd.concat([test_files_demo, test_files_aqecc, test_files_daps])
-    test_set["target"] = "bonafide"
+    test_set["label"] = "bonafide"
 
     duration_list = []
     for _, row in tqdm(test_set.iterrows(), total=len(test_set), desc="Preprocessing EnhanceSpeech"):
-        info = torchaudio.info(row["wav_path"])
+        info = torchaudio.info(row["audio_path"])
         duration = info.num_frames / info.sample_rate
         duration_list.append(duration)
 
     # Save the manifest file
     test_set["duration"] = duration_list
-    test_set[["wav_path", "duration", "target"]].to_csv(output_path, index=False)
+    test_set[["audio_path", "duration", "label"]].to_csv(output_path, index=False)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(

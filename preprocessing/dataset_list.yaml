@@ -4,38 +4,38 @@
 ROOT_DATA: ./data
 
 datasets:
-  - name: asvspoof2019
-    script_path: $ROOT_DATA/asvspoof2019/processed/LA
-  - name: jvnv
-    script_path: preprocessing/prep_jvnv.py
-    args:
-      --source_dir: $ROOT_DATA/jvnv/processed/jvnv_v1
-      --output_path: $ROOT_DATA/jvnv/processed/manifest_jvnv.csv
+  # - name: asvspoof2019
+  #   script_path: $ROOT_DATA/asvspoof2019/processed/LA
+  # - name: jvnv
+  #   script_path: preprocessing/prep_jvnv.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/jvnv/processed/jvnv_v1
+  #     --output_path: $ROOT_DATA/jvnv/processed/manifest_jvnv.csv
 
-  - name: Codecfake
-    script_path: preprocessing/prep_Codecfake.py
-    args:
-      --source_dir: $ROOT_DATA/Codecfake/processed
-      --output_path: $ROOT_DATA/Codecfake/processed/manifest_Codecfake.csv
+  # - name: Codecfake
+  #   script_path: preprocessing/prep_Codecfake.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/Codecfake/processed
+  #     --output_path: $ROOT_DATA/Codecfake/processed/manifest_Codecfake.csv
 
-  - name: CodecFake
-    script_path: preprocessing/prep_CodecFake.py
-    args:
-      --source_dir: $ROOT_DATA/CodecFake/processed
-      --output_path: $ROOT_DATA/CodecFake/processed/manifest_CodecFake.csv
+  # - name: CodecFake
+  #   script_path: preprocessing/prep_CodecFake.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/CodecFake/processed
+  #     --output_path: $ROOT_DATA/CodecFake/processed/manifest_CodecFake.csv
   
-  - name: cvoicefake
-    script_path: preprocessing/prep_cvoicefake.py
-    args:
-      --source_dir: $ROOT_DATA/cvoicefake/processed/CVoiceFake_Large
-      --output_path: $ROOT_DATA/cvoicefake/processed/manifest_cvoicefake.csv
+  # - name: cvoicefake
+  #   script_path: preprocessing/prep_cvoicefake.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/cvoicefake/processed/CVoiceFake_Large
+  #     --output_path: $ROOT_DATA/cvoicefake/processed/manifest_cvoicefake.csv
   
-  - name: habla
-    script_path: preprocessing/prep_habla.py
-    args:
-      --source_dir: $ROOT_DATA/habla/processed/eval
-      --label_file: $ROOT_DATA/habla/raw/protocol.txt
-      --output_path: $ROOT_DATA/habla/processed/manifest_habla.csv
+  # - name: habla
+  #   script_path: preprocessing/prep_habla.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/habla/processed/eval
+  #     --label_file: $ROOT_DATA/habla/raw/protocol.txt
+  #     --output_path: $ROOT_DATA/habla/processed/manifest_habla.csv
   
   # - name: diffuseorconfuse
   #   script_path: preprocessing/prep_diffuse-or-confuse.py
@@ -43,51 +43,51 @@ datasets:
   #     --source_dir: $ROOT_DATA/diffuse_or_confuse/processed
   #     --output_path: $ROOT_DATA/diffuse_or_confuse/manifest_diffuse-or-confuse.csv
 
-  - name: in-the-wild
-    script_path: preprocessing/prep_itw.py
-    args:
-      --source_dir: $ROOT_DATA/in-the-wild/processed/release_in_the_wild/
-      --output_path: $ROOT_DATA/in-the-wild/processed/manifest_itw.csv
+  # - name: in-the-wild
+  #   script_path: preprocessing/prep_itw.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/in-the-wild/processed/release_in_the_wild/
+  #     --output_path: $ROOT_DATA/in-the-wild/processed/manifest_itw.csv
 
-  - name: mlaad-v5
-    script_path: preprocessing/prep_mlaad.py
-    args:
-      --source_dir: $ROOT_DATA/mlaad-v5/processed
-      --output_path: $ROOT_DATA/mlaad-v5/processed/manifest_mlaad-v5.csv
+  # - name: mlaad-v5
+  #   script_path: preprocessing/prep_mlaad.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/mlaad-v5/processed
+  #     --output_path: $ROOT_DATA/mlaad-v5/processed/manifest_mlaad-v5.csv
 
-  - name: for-original
-    # The script that will be used to process this dataset.
-    script_path: preprocessing/prep_for.py
-    args:
-      # The location of the unzipped data.
-      --source_dir: $ROOT_DATA/for-original/processed/for-original/testing
-      # The desired location for the final manifest CSV file.
-      --output_path: $ROOT_DATA/for-original/processed/manifest_for-original.csv
+  # - name: for-original
+  #   # The script that will be used to process this dataset.
+  #   script_path: preprocessing/prep_for.py
+  #   args:
+  #     # The location of the unzipped data.
+  #     --source_dir: $ROOT_DATA/for-original/processed/for-original/testing
+  #     # The desired location for the final manifest CSV file.
+  #     --output_path: $ROOT_DATA/for-original/processed/manifest_for-original.csv
 
-  - name: for-norm
-    script_path: preprocessing/prep_for.py
-    args:
-      --source_dir: $ROOT_DATA/for-norm/processed/for-norm/testing
-      --output_path: $ROOT_DATA/for-norm/processed/manifest_for-norm.csv
+  # - name: for-norm
+  #   script_path: preprocessing/prep_for.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/for-norm/processed/for-norm/testing
+  #     --output_path: $ROOT_DATA/for-norm/processed/manifest_for-norm.csv
 
-  - name: for-2s
-    script_path: preprocessing/prep_for.py
-    args:
-      --source_dir: $ROOT_DATA/for-2s/processed/for-2s/testing
-      --output_path: $ROOT_DATA/for-2s/processed/manifest_for-2s.csv
+  # - name: for-2s
+  #   script_path: preprocessing/prep_for.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/for-2s/processed/for-2s/testing
+  #     --output_path: $ROOT_DATA/for-2s/processed/manifest_for-2s.csv
 
-  - name: for-rerec
-    script_path: preprocessing/prep_for.py
-    args:
-      --source_dir: $ROOT_DATA/for-rerec/processed/for-rerec/testing
-      --output_path: $ROOT_DATA/for-rerec/processed/manifest_for-rerec.csv
+  # - name: for-rerec
+  #   script_path: preprocessing/prep_for.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/for-rerec/processed/for-rerec/testing
+  #     --output_path: $ROOT_DATA/for-rerec/processed/manifest_for-rerec.csv
 
-  - name: playback-attacks
-    script_path: preprocessing/prep_playback-attacks.py
-    args:
-      --source_dir: $ROOT_DATA/playback_attacks/processed/data
-      --label_file: $ROOT_DATA/playback_attacks/processed/metadata.csv
-      --output_path: manifest/playback-attacks.csv
+  # - name: playback-attacks
+  #   script_path: preprocessing/prep_playback-attacks.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/playback_attacks/processed/data
+  #     --label_file: $ROOT_DATA/playback_attacks/processed/metadata.csv
+  #     --output_path: manifest/playback-attacks.csv
 
   # - name: decro
   #   script_path: preprocessing/prep_decro.py
@@ -115,11 +115,11 @@ datasets:
   #     --source_dir: $ROOT_DATA/enhancespeech/processed
   #     --output_path: $ROOT_DATA/enhancespeech/manifest_enhancespeech.csv
 
-  - name: wavefake
-    script_path: preprocessing/prep_wavefake.py
-    args:
-      --source_dir: $ROOT_DATA/wavefake/processed
-      --output_path: $ROOT_DATA/wavefake/manifest_wavefake.csv
+  # - name: wavefake
+  #   script_path: preprocessing/prep_wavefake.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/wavefake/processed
+  #     --output_path: $ROOT_DATA/wavefake/manifest_wavefake.csv
 
   # - name: ctrsvdd
   #   script_path: preprocessing/prep_ctrsvdd.py
@@ -139,11 +139,11 @@ datasets:
   #     --source_dir: $ROOT_DATA/src4vc/processed
   #     --output_path: $ROOT_DATA/src4vc/manifest_src4vc.csv
 
-  # - name: timittts
-  #   script_path: preprocessing/prep_timittts.py
-  #   args:
-  #     --source_dir: $ROOT_DATA/timittts/processed
-  #     --output_path: $ROOT_DATA/timittts/manifest_timittts.csv
+  - name: timittts
+    script_path: preprocessing/prep_timittts.py
+    args:
+      --source_dir: $ROOT_DATA/timittts/processed
+      --output_path: $ROOT_DATA/timittts/processed/manifest_timittts.csv
 
   # - name: ctrsvdd
   #   script_path: preprocessing/prep_ctrsvdd.py
