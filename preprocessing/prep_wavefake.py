@@ -12,6 +12,7 @@ import torchaudio
 def prepare_dataset(source_dir: str, output_path: str):
     test_files = glob(os.path.join(source_dir, "**/*.wav"), recursive=True)
     test_set = pd.DataFrame(test_files, columns=["audio_path"])
+    test_set = test_set[~test_set["audio_path"].str.contains("common_voices_prompts_from_conformer_fastspeech2_pwg_ljspeech")]
     test_set["label"] = "bonafide"
 
     duration_list = []
