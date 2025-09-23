@@ -26,14 +26,14 @@ model:
 # To use a dataset group, fill in `group_name` and leave `manifest_path` as null.
 data:
   # --- Option A: For a single dataset run ---
-  manifest_path: data/timittts/processed/manifest_timittts.csv # e.g., "data/for-original/processed/manifest_for-original.csv"
-  group_name: null
+  # manifest_path: data/timittts/processed/manifest_timittts.csv # e.g., "data/for-original/processed/manifest_for-original.csv"
+  # group_name: null
 
   # # --- Option B: For a group run ---
-  # group_name: real_and_fake # e.g., "real_and_fake"
+  group_name: deepfake # e.g., "real_and_fake"
 
   # # Path to the YAML file that defines your dataset groups.
-  # groups_config_path: benchmarks/hparams/dataset_groups.yaml
+  groups_config_path: benchmark/dataset_group.yaml
 
   # --- Data loader hyperparameters ---
   data_args:
