@@ -44,3 +44,7 @@ all:
   #   manifest_path: wavefake/processed/manifest_wavefake.csv
   # - name: TIMITTTS
   #   manifest_path: timittts/processed/manifest_timittts.csv
+  # - name: MSceneSpeech
+  #   manifest_path: mscenespeech/processed/manifest_mscenespeech.csv
+  # - name: EnhanceSpeech
+  #   manifest_path: enhancespeech/processed/manifest_enhancespeech.csv

@@ -101,11 +101,11 @@ datasets:
   #     --source_dir: $ROOT_DATA/for-rerec/processed/for-rerecorded/testing
   #     --output_path: $ROOT_DATA/for-rerec/processed/manifest_for-rerec.csv
 
-  - name: ODSS
-    script_path: preprocessing/prep_odss.py
-    args:
-      --source_dir: $ROOT_DATA/odss/processed/odss
-      --output_path: $ROOT_DATA/odss/processed/manifest_odss.csv
+  # - name: ODSS
+  #   script_path: preprocessing/prep_odss.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/odss/processed/odss
+  #     --output_path: $ROOT_DATA/odss/processed/manifest_odss.csv
 
   # - name: playback-attacks
   #   script_path: preprocessing/prep_playback-attacks.py
@@ -134,11 +134,11 @@ datasets:
   #     --label_file: $ROOT_DATA/diffssd/processed/train_val_test_splits.csv
   #     --output_path: $ROOT_DATA/diffssd/processed/manifest_diffssd.csv
 
-  # - name: enhancespeech
-  #   script_path: preprocessing/prep_enhancespeech.py
-  #   args:
-  #     --source_dir: $ROOT_DATA/enhancespeech/processed
-  #     --output_path: $ROOT_DATA/enhancespeech/processed/manifest_enhancespeech.csv
+  - name: enhancespeech
+    script_path: preprocessing/prep_enhancespeech.py
+    args:
+      --source_dir: $ROOT_DATA/enhancespeech/processed
+      --output_path: $ROOT_DATA/enhancespeech/processed/manifest_enhancespeech.csv
 
   # - name: wavefake
   #   script_path: preprocessing/prep_wavefake.py
@@ -146,11 +146,11 @@ datasets:
   #     --source_dir: $ROOT_DATA/wavefake/processed
   #     --output_path: $ROOT_DATA/wavefake/processed/manifest_wavefake.csv
 
-  # - name: mscenespeech
-  #   script_path: preprocessing/prep_mscenespeech.py
-  #   args:
-  #     --source_dir: $ROOT_DATA/mscenespeech/processed
-  #     --output_path: $ROOT_DATA/mscenespeech/processed/manifest_mscenespeech.csv
+  - name: mscenespeech
+    script_path: preprocessing/prep_mscenespeech.py
+    args:
+      --source_dir: $ROOT_DATA/mscenespeech/processed
+      --output_path: $ROOT_DATA/mscenespeech/processed/manifest_mscenespeech.csv
 
   # - name: src4vc
   #   script_path: preprocessing/prep_src4vc.py
