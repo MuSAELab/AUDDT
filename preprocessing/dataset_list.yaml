@@ -4,13 +4,25 @@
 ROOT_DATA: ./data
 
 datasets:
-  # - name: asvspoof2019
-  #   script_path: $ROOT_DATA/asvspoof2019/processed/LA
+  - name: asvspoof2019
+    script_path: preprocessing/prep_asv19.py
+    args:
+      --data_root: $ROOT_DATA/asvspoof2019/processed/LA/ASVspoof2019_LA_eval/flac
+      --input_tsv_path: $ROOT_DATA/asvspoof2019/processed/LA/ASVspoof2019_LA_cm_protocols/ASVspoof2019.LA.cm.eval.trl.txt
+      --output_csv: $ROOT_DATA/asvspoof2019/processed/manifest_asvspoof2019.csv
+
   # - name: jvnv
   #   script_path: preprocessing/prep_jvnv.py
   #   args:
   #     --source_dir: $ROOT_DATA/jvnv/processed/jvnv_v1
   #     --output_path: $ROOT_DATA/jvnv/processed/manifest_jvnv.csv
+
+  # - name: asvspoof5
+  #   script_path: preprocessing/prep_asv5.py
+  #   args:
+  #     --data_root: $ROOT_DATA/asvspoof5/processed/flac_E_eval
+  #     --input_tsv_path: $ROOT_DATA/asvspoof5/processed/ASVspoof5.eval.track_1.tsv
+  #     --output_csv: $ROOT_DATA/asvspoof5/processed/manifest_asvspoof5.csv
 
   # - name: Codecfake
   #   script_path: preprocessing/prep_Codecfake.py
@@ -139,11 +151,11 @@ datasets:
   #     --source_dir: $ROOT_DATA/src4vc/processed
   #     --output_path: $ROOT_DATA/src4vc/manifest_src4vc.csv
 
-  - name: timittts
-    script_path: preprocessing/prep_timittts.py
-    args:
-      --source_dir: $ROOT_DATA/timittts/processed
-      --output_path: $ROOT_DATA/timittts/processed/manifest_timittts.csv
+  # - name: timittts
+  #   script_path: preprocessing/prep_timittts.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/timittts/processed
+  #     --output_path: $ROOT_DATA/timittts/processed/manifest_timittts.csv
 
   # - name: ctrsvdd
   #   script_path: preprocessing/prep_ctrsvdd.py

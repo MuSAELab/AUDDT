@@ -16,7 +16,7 @@ tar -xzf $DEST/raw/ASVspoof5_protocols.tar.gz -C "$DEST/processed"
 
 # Evaluation split
 for file in flac_E_aa.tar flac_E_ab.tar flac_E_ac.tar flac_E_ad.tar flac_E_ae.tar \
-            flac_E_af.tar flac_E_ag.tar flac_E_ah.tar; do
+            flac_E_af.tar flac_E_ag.tar flac_E_ah.tar flac_E_ai.tar flac_E_aj.tar; do
     wget -c -O $DEST/raw/$file https://zenodo.org/record/14498691/files/$file
     tar -xf $DEST/raw/$file -C "$DEST/processed"
 done
