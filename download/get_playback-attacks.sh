@@ -8,6 +8,8 @@ DEST="$ROOT/playback_attacks"
 mkdir -p "$DEST/raw"
 mkdir -p "$DEST/processed"
 
+wget -O $DEST/raw/playback_attacks.zip "https://prod-dcd-datasets-cache-zipfiles.s3.eu-west-1.amazonaws.com/5t56sjbgf6-2.zip"
+
 # Assume you have already downloaded the combined ZIP as playback_attacks.zip
 if [ -f "$DEST/raw/playback_attacks.zip" ]; then
   echo "Extracting playback_attacks.zip..."
