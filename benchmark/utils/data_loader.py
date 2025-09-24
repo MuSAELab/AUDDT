@@ -44,3 +44,6 @@ class AudioManifestDataset(Dataset):
         
         except Exception as e:
             print(f"Error loading or processing file {audio_path}: {e}")
+            # Return a dummy tensor with the correct shape on error
+            dummy_waveform = torch.zeros(self.processor.target_length)
+            return dummy_waveform, -1

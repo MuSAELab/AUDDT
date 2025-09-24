@@ -30,7 +30,7 @@ data:
   # group_name: null
 
   # # --- Option B: For a group run ---
-  group_name: deepfake # e.g., "real_and_fake"
+  group_name: all # e.g., "all"
 
   # # Path to the YAML file that defines your dataset groups.
   groups_config_path: benchmark/dataset_group.yaml

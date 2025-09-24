@@ -1,22 +1,26 @@
 # Defines groups of datasets for evaluation.
 all:
-  - name: Codecfake
-    manifest_path: data/Codecfake/processed/manifest_Codecfake.csv
-  - name: CodecFake
-    manifest_path: data/CodecFake/processed/manifest_CodecFake.csv
-  - name: CVoiceFake
-    manifest_path: data/cvoicefake/processed/manifest_cvoicefake.csv
-  - name: DiffuseOrConfuse
-    manifest_path: data/diffuse_or_confuse/manifest_diffuse-or-confuse.csv
-  - name: FoR-original
-    manifest_path: data/for-original/processed/manifest_for-original.csv
-  - name: HABLA
-    manifest_path: data/habla/processed/manifest_habla.csv
-  - name: ITW
-    manifest_path: data/in-the-wild/processed/manifest_itw.csv
-  - name: JVNV
-    manifest_path: data/jvnv/processed/manifest_jvnv.csv
-  - name: MLAAD-v5
-    manifest_path: data/mlaad-v5/processed/manifest_mlaad-v5.csv
-  - name: TIMITTTS
-    manifest_path: data/VCC2018/processed/manifest_timittts.csv
+  # - name: ASVspoof2019
+  #   manifest_path: data/asvspoof2019/processed/manifest_asvspoof2019.csv
+  # - name: ASVspoof5
+  #   manifest_path: data/asvspoof5/processed/manifest_asvspoof5.csv
+  # - name: CodecFake
+  #   manifest_path: data/CodecFake/processed/manifest_CodecFake.csv
+  # - name: Codecfake
+  #   manifest_path: data/Codecfake/processed/manifest_Codecfake.csv
+  # - name: CVoiceFake
+  #   manifest_path: data/cvoicefake/processed/manifest_cvoicefake.csv
+  # - name: DiffuseOrConfuse
+  #   manifest_path: data/diffuse_or_confuse/manifest_diffuse-or-confuse.csv
+  # - name: FoR-original
+  #   manifest_path: data/for-original/processed/manifest_for-original.csv
+  # - name: HABLA
+  #   manifest_path: data/habla/processed/manifest_habla.csv
+  # - name: ITW
+  #   manifest_path: data/in-the-wild/processed/manifest_itw.csv
+  # - name: JVNV
+  #   manifest_path: data/jvnv/processed/manifest_jvnv.csv
+  # - name: MLAAD-v5
+  #   manifest_path: data/mlaad-v5/processed/manifest_mlaad-v5.csv
+  # - name: TIMITTTS
+  #   manifest_path: data/timittts/processed/manifest_timittts.csv
