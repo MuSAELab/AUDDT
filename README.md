@@ -4,8 +4,8 @@
   <img alt="License" src="https://img.shields.io/badge/License-Research--Use--Only-blue.svg">
   <img alt="Python" src="https://img.shields.io/badge/Python-3.8+-green.svg">
   <img alt="Paper" src="https://img.shields.io/badge/arXiv-xxxx.xxxxx-b31b1b.svg">
-  <a href="https://github.com/zhu00121/AUDDT/issues">
-    <img alt="Issues" src="https://img.shields.io/github/issues/zhu00121/AUDDT">
+  <a href="https://github.com/MUSAE/AUDDT/issues">
+    <img alt="Issues" src="https://img.shields.io/github/MUSAE/zhu00121/AUDDT">
   </a>
 </p>
 
@@ -13,7 +13,7 @@
 
 The current version includes **28+ datasets**.
 
-![AUDDT Workflow Diagram](assets/auddt_workflow.png)
+![AUDDT Workflow Diagram](assets/auddt_new.png)
 ---
 
 ## Table of Contents
@@ -42,7 +42,7 @@ We are actively developing AUDDT. See below for the latest updates.
 ## Installation
 1.  Clone the repository:
     ```bash
-    git clone [https://github.com/zhu00121/AUDDT.git](https://github.com/zhu00121/AUDDT.git)
+    git clone [https://github.com/MUSAE/AUDDT.git](https://github.com/MUSAE/AUDDT.git)
     cd AUDDT
     ```
 
