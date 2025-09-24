@@ -4,12 +4,19 @@
 ROOT_DATA: ./data
 
 datasets:
-  - name: asvspoof2019
-    script_path: preprocessing/prep_asv19.py
-    args:
-      --data_root: $ROOT_DATA/asvspoof2019/processed/LA/ASVspoof2019_LA_eval/flac
-      --input_tsv_path: $ROOT_DATA/asvspoof2019/processed/LA/ASVspoof2019_LA_cm_protocols/ASVspoof2019.LA.cm.eval.trl.txt
-      --output_csv: $ROOT_DATA/asvspoof2019/processed/manifest_asvspoof2019.csv
+  # - name: asvspoof2019
+  #   script_path: preprocessing/prep_asv19.py
+  #   args:
+  #     --data_root: $ROOT_DATA/asvspoof2019/processed/LA/ASVspoof2019_LA_eval/flac
+  #     --input_tsv_path: $ROOT_DATA/asvspoof2019/processed/LA/ASVspoof2019_LA_cm_protocols/ASVspoof2019.LA.cm.eval.trl.txt
+  #     --output_csv: $ROOT_DATA/asvspoof2019/processed/manifest_asvspoof2019.csv
+
+  # - name: asvspoof2021-la
+  #   script_path: preprocessing/prep_asv21-la.py
+  #   args:
+  #     --data_root: data/asvspoof2021_la/processed/ASVspoof2021_LA_eval/flac
+  #     --input_label_path: $ROOT_DATA/asvspoof2021_la/processed/keys/LA/CM/trial_metadata.txt
+  #     --output_csv: $ROOT_DATA/asvspoof2021_la/processed/manifest_asvspoof2021_la.csv
 
   # - name: jvnv
   #   script_path: preprocessing/prep_jvnv.py
@@ -82,24 +89,30 @@ datasets:
   #     --source_dir: $ROOT_DATA/for-norm/processed/for-norm/testing
   #     --output_path: $ROOT_DATA/for-norm/processed/manifest_for-norm.csv
 
-  # - name: for-2s
+  # - name: for-2sec
   #   script_path: preprocessing/prep_for.py
   #   args:
-  #     --source_dir: $ROOT_DATA/for-2s/processed/for-2s/testing
-  #     --output_path: $ROOT_DATA/for-2s/processed/manifest_for-2s.csv
+  #     --source_dir: $ROOT_DATA/for-2sec/processed/for-2seconds/testing
+  #     --output_path: $ROOT_DATA/for-2sec/processed/manifest_for-2s.csv
 
-  # - name: for-rerec
+  # - name: for-rerecorded
   #   script_path: preprocessing/prep_for.py
   #   args:
-  #     --source_dir: $ROOT_DATA/for-rerec/processed/for-rerec/testing
+  #     --source_dir: $ROOT_DATA/for-rerec/processed/for-rerecorded/testing
   #     --output_path: $ROOT_DATA/for-rerec/processed/manifest_for-rerec.csv
+
+  - name: ODSS
+    script_path: preprocessing/prep_odss.py
+    args:
+      --source_dir: $ROOT_DATA/odss/processed/odss
+      --output_path: $ROOT_DATA/odss/processed/manifest_odss.csv
 
   # - name: playback-attacks
   #   script_path: preprocessing/prep_playback-attacks.py
   #   args:
   #     --source_dir: $ROOT_DATA/playback_attacks/processed/data
   #     --label_file: $ROOT_DATA/playback_attacks/processed/metadata.csv
-  #     --output_path: manifest/playback-attacks.csv
+  #     --output_path: $ROOT_DATA/playback_attacks/processed//manifest_playback-attacks.csv
 
   # - name: decro
   #   script_path: preprocessing/prep_decro.py
@@ -112,44 +125,38 @@ datasets:
   #   args:
   #     --source_dir: $ROOT_DATA/dfadd/raw
   #     --dest_dir: $ROOT_DATA/dfadd/processed
-  #     --output_path: $ROOT_DATA/dfadd/manifest_dfadd.csv
+  #     --output_path: $ROOT_DATA/dfadd/processed/manifest_dfadd.csv
 
   # - name: diffssd
   #   script_path: preprocessing/prep_diffssd.py
   #   args:
   #     --source_dir: $ROOT_DATA/diffssd/processed
   #     --label_file: $ROOT_DATA/diffssd/processed/train_val_test_splits.csv
-  #     --output_path: $ROOT_DATA/diffssd/manifest_diffssd.csv
+  #     --output_path: $ROOT_DATA/diffssd/processed/manifest_diffssd.csv
 
   # - name: enhancespeech
   #   script_path: preprocessing/prep_enhancespeech.py
   #   args:
   #     --source_dir: $ROOT_DATA/enhancespeech/processed
-  #     --output_path: $ROOT_DATA/enhancespeech/manifest_enhancespeech.csv
+  #     --output_path: $ROOT_DATA/enhancespeech/processed/manifest_enhancespeech.csv
 
   # - name: wavefake
   #   script_path: preprocessing/prep_wavefake.py
   #   args:
   #     --source_dir: $ROOT_DATA/wavefake/processed
-  #     --output_path: $ROOT_DATA/wavefake/manifest_wavefake.csv
-
-  # - name: ctrsvdd
-  #   script_path: preprocessing/prep_ctrsvdd.py
-  #   args:
-  #     --source_dir: $ROOT_DATA/ctrsvdd/processed
-  #     --output_path: $ROOT_DATA/ctrsvdd/manifest_ctrsvdd.csv
+  #     --output_path: $ROOT_DATA/wavefake/processed/manifest_wavefake.csv
 
   # - name: mscenespeech
   #   script_path: preprocessing/prep_mscenespeech.py
   #   args:
   #     --source_dir: $ROOT_DATA/mscenespeech/processed
-  #     --output_path: $ROOT_DATA/mscenespeech/manifest_mscenespeech.csv
+  #     --output_path: $ROOT_DATA/mscenespeech/processed/manifest_mscenespeech.csv
 
   # - name: src4vc
   #   script_path: preprocessing/prep_src4vc.py
   #   args:
   #     --source_dir: $ROOT_DATA/src4vc/processed
-  #     --output_path: $ROOT_DATA/src4vc/manifest_src4vc.csv
+  #     --output_path: $ROOT_DATA/src4vc/processed/manifest_src4vc.csv
 
   # - name: timittts
   #   script_path: preprocessing/prep_timittts.py
@@ -162,4 +169,4 @@ datasets:
   #   args:
   #     --source_dir: $ROOT_DATA/ctrsvdd/processed
   #     --label_file: $ROOT_DATA/ctrsvdd/processed/test.txt
-  #     --output_path: $ROOT_DATA/ctrsvdd/manifest_ctrsvdd.csv
+  #     --output_path: $ROOT_DATA/ctrsvdd/processed/manifest_ctrsvdd.csv

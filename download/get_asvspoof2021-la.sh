@@ -15,4 +15,8 @@ echo "2abee34d8b0b91159555fc4f016e4562  $DEST/raw/ASVspoof2021_LA_eval.tar.gz" |
 
 tar -xzf $DEST/raw/ASVspoof2021_LA_eval.tar.gz -C "$DEST/processed"
 
+# Get labels
+wget -c -O $DEST/raw/LA-keys-full.tar.gz https://www.asvspoof.org/asvspoof2021/LA-keys-full.tar.gz
+tar -xzf $DEST/raw/LA-keys-full.tar.gz -C $DEST/processed
+
 echo " --- ASVspoof 2021 LA download and extraction complete. Files saved in $DEST ---"

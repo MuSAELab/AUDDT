@@ -88,12 +88,19 @@ def main(config):
 
     # Determine which datasets to evaluate
     datasets_to_evaluate = []
+
     if data_cfg.get('manifest_path'):
         manifest_path = data_cfg['manifest_path']
-        datasets_to_evaluate.append({"name": os.path.basename(manifest_path).split('.')[0], "manifest_path": manifest_path})
+        datasets_to_evaluate.append({
+            "name": os.path.basename(manifest_path).split('.')[0], 
+            "manifest_path": manifest_path
+            })
     elif data_cfg.get('group_name'):
+
         with open(data_cfg['groups_config_path'], 'r') as f:
             groups = yaml.safe_load(f)
+
+        root_path_yaml = groups.get('ROOT', '')
         group_name = data_cfg['group_name']
         if group_name not in groups:
             raise ValueError(f"Dataset group '{group_name}' not found in {data_cfg['groups_config_path']}")
@@ -104,11 +111,14 @@ def main(config):
     # Get dataset-specific arguments from the config, defaulting to an empty dict
     data_args = data_cfg.get('data_args', {})
     
-    # --- Loop through each dataset and run the evaluation ---
+    # Loop through each dataset and run the evaluation
     group_results = {}
     for dataset_info in datasets_to_evaluate:
         dataset_name = dataset_info['name']
-        manifest_path = dataset_info['manifest_path']
+        if data_cfg.get('group_name'):
+            manifest_path = os.path.join(root_path_yaml, dataset_info['manifest_path'])
+        else:
+            manifest_path = dataset_info['manifest_path']
         
         print(f"\n--- Evaluating on: {dataset_name} ---")
         if not os.path.exists(manifest_path):

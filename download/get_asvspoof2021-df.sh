@@ -2,7 +2,6 @@
 
 # Download and extract ASVspoof 2021 DF dataset from Zenodo (record 4835108)
 
-
 source ./download/config.sh
 
 DEST="$ROOT/asvspoof2021_df"
