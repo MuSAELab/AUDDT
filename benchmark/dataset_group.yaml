@@ -32,8 +32,8 @@ all:
   #   manifest_path: jvnv/processed/manifest_jvnv.csv
   # - name: MLAAD-v5
   #   manifest_path: mlaad-v5/processed/manifest_mlaad-v5.csv
-  - name: ODSS
-    manifest_path: odss/processed/manifest_odss.csv
+  # - name: ODSS
+  #   manifest_path: odss/processed/manifest_odss.csv
   # - name: Playback-attacks
   #   manifest_path: playback_attacks/processed/manifest_playback-attacks.csv
   # - name: SRC4VC
