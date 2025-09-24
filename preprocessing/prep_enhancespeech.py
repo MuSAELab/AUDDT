@@ -3,7 +3,7 @@
 # Insert the zip file in a folder called "enhancespeech/raw" inside your data root
 # Unzip the compressed file and insert in a folder called "enhancespeech/processed" inside your data root.
 # In the end, your folder structure should be like this:
-#
+
 # data_root/
 #  ├── enhancespeech/
 #  │   ├── raw/
