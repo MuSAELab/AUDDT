@@ -3,7 +3,9 @@
 <p align="center">
   <img alt="License" src="https://img.shields.io/badge/License-Research--Use--Only-blue.svg">
   <img alt="Python" src="https://img.shields.io/badge/Python-3.8+-green.svg">
-  <img alt="Paper" src="https://img.shields.io/badge/arXiv-2509.21597-b31b1b.svg">
+  <a href="https://www.arxiv.org/abs/2509.21597" target="_blank">
+    <img alt="Paper" src="https://img.shields.io/badge/arXiv-2509.21597-b31b1b.svg">
+  </a>
   <a href="https://docs.google.com/spreadsheets/d/1RVUrnBqSarKIwsHcjXvTcLxHyop7eAUzsBhvAexyR80/edit?usp=sharing" target="_blank">
     <img alt="Datasets" src="https://img.shields.io/badge/Datasets-28-blue">
   </a>
