@@ -144,6 +144,10 @@ While the team will keep updating the benchmark coverage, it is highly encourage
 }
 ```
 
+## Limitations
+
+1. The FakeSound dataset included in this benchmark currently contains only spoofed audio samples. Obtaining the corresponding bona fide (real) data requires additional manual steps. We plan to resolve this limitation and provide the complete dataset in future updates.
+
 ## License
 This project is licensed for **academic and research use only**.  
 Commercial use is **strictly prohibited** without prior written permission.  
