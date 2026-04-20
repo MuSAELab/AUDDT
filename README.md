@@ -136,10 +136,10 @@ While the team will keep updating the benchmark coverage, it is highly encourage
 
 ## Citation
 ```
-@inproceedings{yourname2025AUDDT,
-  title={{AUDDT: An Open Benchmark Toolkit for Audio Deepfake Detection}},
-  author={Your Name and Co-authors},
-  booktitle={Conference Name},
+@article{zhu2025auddt,
+  title={AUDDT: Audio Unified Deepfake Detection Benchmark Toolkit},
+  author={Zhu, Yi and Guimar{\~a}es, Heitor R and Pimentel, Arthur and Falk, Tiago},
+  journal={arXiv preprint arXiv:2509.21597},
   year={2025}
 }
 ```
