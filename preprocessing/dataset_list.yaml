@@ -152,6 +152,12 @@ datasets:
       --source_dir: $ROOT_DATA/mscenespeech/processed
       --output_path: $ROOT_DATA/mscenespeech/processed/manifest_mscenespeech.csv
 
+  # - name: fakesound
+  #   script_path: preprocessing/prep_fakesound.py
+  #   args:
+  #     --source_dir: $ROOT_DATA/fakesound/processed
+  #     --output_path: $ROOT_DATA/fakesound/processed/manifest_fakesound.csv
+
   # - name: src4vc
   #   script_path: preprocessing/prep_src4vc.py
   #   args:
