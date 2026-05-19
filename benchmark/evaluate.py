@@ -104,7 +104,20 @@ def main(config):
         group_name = data_cfg['group_name']
         if group_name not in groups:
             raise ValueError(f"Dataset group '{group_name}' not found in {data_cfg['groups_config_path']}")
-        datasets_to_evaluate = groups[group_name]
+
+        group_data = groups[group_name]
+        if isinstance(group_data, dict) and 'source' in group_data:
+            source_name = group_data['source']
+            if source_name not in groups:
+                raise ValueError(f"Source group '{source_name}' not found for filter group '{group_name}'")
+            filters = group_data.get('filters', {})
+            datasets_to_evaluate = [
+                d for d in groups[source_name]
+                if all(d.get(k) == v for k, v in filters.items())
+            ]
+            print(f"Filter group '{group_name}': {len(datasets_to_evaluate)} datasets matched from '{source_name}'")
+        else:
+            datasets_to_evaluate = group_data
     else:
         raise ValueError("Config error: You must specify either 'manifest_path' or 'group_name' in the data section.")
     

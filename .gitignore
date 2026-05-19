@@ -225,3 +225,5 @@ results/
 *.pt
 *.pth
 
+ckpts
+download/auddt_baselines_checkpoints.tar.gz

@@ -1,54 +1,359 @@
 # Defines groups of datasets for evaluation.
+#
+# Dataset attributes:
+#   in_the_wild  : true | false | null (null = not declared)
+#   perturbation : true | false | null
+#   language     : en | mandarin | japanese | en+mandarin | multilingual | null
+#   accent       : true | false | null
+#   vocal_sounds : true | false | null
+#   expressivity : true | false | null
+#   vocoder      : true | false | null  (generated/processed with a vocoder)
+#   neural_codec : true | false | null  (generated/processed with a neural codec)
+#
+# Comment out any dataset you do not have locally.
+#
+# Subgroups can be defined in two ways:
+#   1. Explicit list — same format as 'all' below.
+#   2. Filter-based — a dict with 'source' (group name) and 'filters' (attribute
+#      key/value pairs that must ALL match). Datasets where an attribute is null
+#      are excluded from filtered groups.
+
 ROOT: data/
 
 all:
-  # - name: ASVspoof2019
-  #   manifest_path: asvspoof2019/processed/manifest_asvspoof2019.csv
-  # - name: ASVspoof2021-LA
-  #   manifest_path: asvspoof2021_la/processed/manifest_asvspoof2021_la.csv
-  # - name: ASVspoof5
-  #   manifest_path: asvspoof5/processed/manifest_asvspoof5.csv
-  # - name: CodecFake
-  #   manifest_path: CodecFake/processed/manifest_CodecFake.csv
-  # - name: Codecfake
-  #   manifest_path: Codecfake/processed/manifest_Codecfake.csv
-  # - name: CVoiceFake
-  #   manifest_path: cvoicefake/processed/manifest_cvoicefake.csv
-  # - name: DiffuseOrConfuse
-  #   manifest_path: diffuse_or_confuse/manifest_diffuse-or-confuse.csv
-  # - name: FoR-original
-  #   manifest_path: for-original/processed/manifest_for-original.csv
-  # - name: FoR-2sec
-  #   manifest_path: for-2sec/processed/manifest_for-2s.csv
-  # - name: FoR-norm
-  #   manifest_path: for-norm/processed/manifest_for-norm.csv
-  # - name: FoR-rerec
-  #   manifest_path: for-rerec/processed/manifest_for-rerec.csv
-  # - name: HABLA
-  #   manifest_path: habla/processed/manifest_habla.csv
-  # - name: ITW
-  #   manifest_path: in-the-wild/processed/manifest_itw.csv
-  # - name: JVNV
-  #   manifest_path: jvnv/processed/manifest_jvnv.csv
-  # - name: MLAAD-v5
-  #   manifest_path: mlaad-v5/processed/manifest_mlaad-v5.csv
-  # - name: ODSS
-  #   manifest_path: odss/processed/manifest_odss.csv
-  # - name: Playback-attacks
-  #   manifest_path: playback_attacks/processed/manifest_playback-attacks.csv
-  # - name: SRC4VC
-  #   manifest_path: src4vc/processed/manifest_src4vc.csv
-  # - name: DFADD
-  #   manifest_path: dfadd/processed/manifest_dfadd.csv
-  # - name: WaveFake
-  #   manifest_path: wavefake/processed/manifest_wavefake.csv
-  # - name: TIMITTTS
-  #   manifest_path: timittts/processed/manifest_timittts.csv
-  # - name: MSceneSpeech
-  #   manifest_path: mscenespeech/processed/manifest_mscenespeech.csv
-  # - name: EnhanceSpeech
-  #   manifest_path: enhancespeech/processed/manifest_enhancespeech.csv
-  # - name: FakeSound
-  #   manifest_path: fakesound/processed/manifest_fakesound.csv
-  # - name: EnvSDD
-  #   manifest_path: envssd/processed/manifest_envssd.csv
+  - name: ASVspoof2019
+    manifest_path: asvspoof2019/processed/manifest_asvspoof2019.csv
+    in_the_wild: false
+    perturbation: true
+    language: en
+    accent: false
+    vocal_sounds: false
+    expressivity: false
+    vocoder: true
+    neural_codec: false
+
+  - name: ASVspoof2021-LA
+    manifest_path: asvspoof2021_la/processed/manifest_asvspoof2021_la.csv
+    in_the_wild: false
+    perturbation: true
+    language: en
+    accent: false
+    vocal_sounds: false
+    expressivity: false
+    vocoder: true
+    neural_codec: false
+
+  - name: ASVspoof5
+    manifest_path: asvspoof5/processed/manifest_asvspoof5.csv
+    in_the_wild: null
+    perturbation: true
+    language: en
+    accent: false
+    vocal_sounds: false
+    expressivity: false
+    vocoder: true
+    neural_codec: false
+
+  - name: CodecFake
+    manifest_path: CodecFake/processed/manifest_CodecFake.csv
+    in_the_wild: false
+    perturbation: false
+    language: en
+    accent: false
+    vocal_sounds: false
+    expressivity: false
+    vocoder: false
+    neural_codec: true
+
+  - name: Codecfake
+    manifest_path: Codecfake/processed/manifest_Codecfake.csv
+    in_the_wild: false
+    perturbation: false
+    language: mandarin
+    accent: false
+    vocal_sounds: false
+    expressivity: false
+    vocoder: false
+    neural_codec: true
+
+  - name: CVoiceFake
+    manifest_path: cvoicefake/processed/manifest_cvoicefake.csv
+    in_the_wild: false
+    perturbation: false
+    language: multilingual
+    accent: false
+    vocal_sounds: false
+    expressivity: false
+    vocoder: true
+    neural_codec: false
+
+  - name: DiffuseOrConfuse
+    manifest_path: diffuse_or_confuse/manifest_diffuse-or-confuse.csv
+    in_the_wild: false
+    perturbation: false
+    language: en
+    accent: false
+    vocal_sounds: false
+    expressivity: false
+    vocoder: true
+    neural_codec: false
+
+  - name: FoR-original
+    manifest_path: for-original/processed/manifest_for-original.csv
+    in_the_wild: false
+    perturbation: false
+    language: en
+    accent: false
+    vocal_sounds: false
+    expressivity: false
+    vocoder: true
+    neural_codec: false
+
+  - name: FoR-2sec
+    manifest_path: for-2sec/processed/manifest_for-2s.csv
+    in_the_wild: false
+    perturbation: false
+    language: en
+    accent: false
+    vocal_sounds: false
+    expressivity: false
+    vocoder: true
+    neural_codec: false
+
+  - name: FoR-norm
+    manifest_path: for-norm/processed/manifest_for-norm.csv
+    in_the_wild: false
+    perturbation: false
+    language: en
+    accent: false
+    vocal_sounds: false
+    expressivity: false
+    vocoder: true
+    neural_codec: false
+
+  - name: FoR-rerec
+    manifest_path: for-rerec/processed/manifest_for-rerec.csv
+    in_the_wild: false
+    perturbation: true
+    language: en
+    accent: false
+    vocal_sounds: false
+    expressivity: false
+    vocoder: true
+    neural_codec: false
+
+  - name: HABLA
+    manifest_path: habla/processed/manifest_habla.csv
+    in_the_wild: false
+    perturbation: false
+    language: en
+    accent: true
+    vocal_sounds: false
+    expressivity: false
+    vocoder: true
+    neural_codec: false
+
+  - name: ITW
+    manifest_path: in-the-wild/processed/manifest_itw.csv
+    in_the_wild: true
+    perturbation: false
+    language: en
+    accent: false
+    vocal_sounds: false
+    expressivity: false
+    vocoder: true
+    neural_codec: false
+
+  - name: JVNV
+    manifest_path: jvnv/processed/manifest_jvnv.csv
+    in_the_wild: false
+    perturbation: false
+    language: japanese
+    accent: false
+    vocal_sounds: true
+    expressivity: true
+    vocoder: true
+    neural_codec: false
+
+  - name: MLAAD-v5
+    manifest_path: mlaad-v5/processed/manifest_mlaad-v5.csv
+    in_the_wild: false
+    perturbation: false
+    language: multilingual
+    accent: false
+    vocal_sounds: false
+    expressivity: false
+    vocoder: true
+    neural_codec: false
+
+  - name: ODSS
+    manifest_path: odss/processed/manifest_odss.csv
+    in_the_wild: false
+    perturbation: false
+    language: multilingual
+    accent: false
+    vocal_sounds: false
+    expressivity: false
+    vocoder: true
+    neural_codec: false
+
+  - name: Playback-attacks
+    manifest_path: playback_attacks/processed/manifest_playback-attacks.csv
+    in_the_wild: false
+    perturbation: true
+    language: en
+    accent: false
+    vocal_sounds: false
+    expressivity: false
+    vocoder: false
+    neural_codec: false
+
+  - name: SRC4VC
+    manifest_path: src4vc/processed/manifest_src4vc.csv
+    in_the_wild: true
+    perturbation: false
+    language: japanese
+    accent: false
+    vocal_sounds: false
+    expressivity: true
+    vocoder: true
+    neural_codec: false
+
+  - name: DFADD
+    manifest_path: dfadd/processed/manifest_dfadd.csv
+    in_the_wild: false
+    perturbation: false
+    language: en
+    accent: false
+    vocal_sounds: false
+    expressivity: false
+    vocoder: true
+    neural_codec: false
+
+  - name: WaveFake
+    manifest_path: wavefake/processed/manifest_wavefake.csv
+    in_the_wild: false
+    perturbation: false
+    language: en
+    accent: false
+    vocal_sounds: false
+    expressivity: false
+    vocoder: true
+    neural_codec: false
+
+  - name: TIMITTTS
+    manifest_path: timittts/processed/manifest_timittts.csv
+    in_the_wild: false
+    perturbation: true
+    language: en
+    accent: false
+    vocal_sounds: false
+    expressivity: false
+    vocoder: true
+    neural_codec: false
+
+  - name: MSceneSpeech
+    manifest_path: mscenespeech/processed/manifest_mscenespeech.csv
+    in_the_wild: false
+    perturbation: false
+    language: en+mandarin
+    accent: false
+    vocal_sounds: false
+    expressivity: true
+    vocoder: false
+    neural_codec: false
+
+  - name: EnhanceSpeech
+    manifest_path: enhancespeech/processed/manifest_enhancespeech.csv
+    in_the_wild: false
+    perturbation: true
+    language: en
+    accent: true
+    vocal_sounds: false
+    expressivity: true
+    vocoder: true
+    neural_codec: false
+
+  - name: FakeSound
+    manifest_path: fakesound/processed/manifest_fakesound.csv
+    in_the_wild: null
+    perturbation: null
+    language: null
+    accent: null
+    vocal_sounds: null
+    expressivity: null
+    vocoder: true
+    neural_codec: null
+
+  - name: EnvSDD
+    manifest_path: envssd/processed/manifest_envssd.csv
+    in_the_wild: null
+    perturbation: null
+    language: null
+    accent: null
+    vocal_sounds: null
+    expressivity: null
+    vocoder: true
+    neural_codec: null
+
+
+# --- Filter-based subgroups ---
+# Each entry below is resolved at runtime by filtering the 'source' group.
+# All specified filters must match (AND logic). Datasets with null for a
+# filtered attribute are excluded.
+
+in-the-wild:
+  source: all
+  filters:
+    in_the_wild: true
+
+no-perturbation:
+  source: all
+  filters:
+    perturbation: false
+
+perturbed:
+  source: all
+  filters:
+    perturbation: true
+
+english-only:
+  source: all
+  filters:
+    language: en
+
+multilingual:
+  source: all
+  filters:
+    language: multilingual
+
+accented:
+  source: all
+  filters:
+    accent: true
+
+vocal-sounds:
+  source: all
+  filters:
+    vocal_sounds: true
+
+expressive:
+  source: all
+  filters:
+    expressivity: true
+
+vocoder-based:
+  source: all
+  filters:
+    vocoder: true
+
+neural-codec-based:
+  source: all
+  filters:
+    neural_codec: true
+
+in-the-wild-no-perturbation:
+  source: all
+  filters:
+    in_the_wild: true
+    perturbation: false
