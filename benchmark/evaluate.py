@@ -158,7 +158,8 @@ def main(config):
             print(f"  -> Single class dataset. Accuracy: {metrics.get('accuracy', 0)*100:.2f}%")
         else:
             print(f"  EER: {metrics['eer']*100:.2f}% | AUC: {metrics['auc']:.4f} | Accuracy: {metrics['accuracy']*100:.2f}%")
-            print(f"  TPR: {metrics['tpr']*100:.2f}% | TNR: {metrics['tnr']*100:.2f}%")
+            print(f"  TPR: {metrics['tpr']*100:.2f}% | TNR: {metrics['tnr']*100:.2f}% | Precision: {metrics['precision']*100:.2f}% | F1: {metrics['f1']:.4f}")
+            print(f"  TP: {metrics['tp']} | TN: {metrics['tn']} | FP: {metrics['fp']} | FN: {metrics['fn']}")
 
         # Save detailed scores
         results_df = pd.DataFrame({'score': scores, 'label': labels})

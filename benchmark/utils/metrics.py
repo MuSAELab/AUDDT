@@ -39,10 +39,16 @@ def calculate_metrics(labels, scores):
 
         return {
             'eer': -1,
+            'auc': -1,
             'accuracy': accuracy,
             'tpr': tpr_val,
             'tnr': tnr_val,
-            'auc': -1
+            'precision': -1,
+            'f1': -1,
+            'tp': -1,
+            'tn': -1,
+            'fp': -1,
+            'fn': -1,
         }
 
     # EER and AUC Calculation
@@ -63,14 +69,26 @@ def calculate_metrics(labels, scores):
     
     # True Positive Rate (TPR) / Recall
     tpr_val = tp / (tp + fn) if (tp + fn) > 0 else 0.0
-    
+
     # True Negative Rate (TNR) / Specificity
     tnr_val = tn / (tn + fp) if (tn + fp) > 0 else 0.0
+
+    # Precision
+    precision = tp / (tp + fp) if (tp + fp) > 0 else 0.0
+
+    # F1
+    f1 = 2 * precision * tpr_val / (precision + tpr_val) if (precision + tpr_val) > 0 else 0.0
 
     return {
         'eer': eer,
         'auc': auc,
         'accuracy': accuracy,
         'tpr': tpr_val,
-        'tnr': tnr_val
+        'tnr': tnr_val,
+        'precision': precision,
+        'f1': f1,
+        'tp': int(tp),
+        'tn': int(tn),
+        'fp': int(fp),
+        'fn': int(fn),
     }
