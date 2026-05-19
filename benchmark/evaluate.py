@@ -185,21 +185,30 @@ def main(config):
             avg_acc = float(np.mean([m['accuracy'] for m in valid_results]))
             avg_tpr = float(np.mean([m['tpr'] for m in valid_results]))
             avg_tnr = float(np.mean([m['tnr'] for m in valid_results]))
-            
+            avg_pre = float(np.mean([m['precision'] for m in valid_results]))
+            avg_f1  = float(np.mean([m['f1'] for m in valid_results]))
+            sum_tp  = int(sum(m['tp'] for m in valid_results))
+            sum_tn  = int(sum(m['tn'] for m in valid_results))
+            sum_fp  = int(sum(m['fp'] for m in valid_results))
+            sum_fn  = int(sum(m['fn'] for m in valid_results))
+
             print("---------------------------------")
             print("Average Metrics (for multi-class datasets):")
             print(f"  EER: {avg_eer*100:.2f}% | AUC: {avg_auc:.4f} | Accuracy: {avg_acc*100:.2f}%")
-            print(f"  TPR: {avg_tpr*100:.2f}% | TNR: {avg_tnr*100:.2f}%")
+            print(f"  TPR: {avg_tpr*100:.2f}% | TNR: {avg_tnr*100:.2f}% | Precision: {avg_pre*100:.2f}% | F1: {avg_f1:.4f}")
+            print(f"  TP: {sum_tp} | TN: {sum_tn} | FP: {sum_fp} | FN: {sum_fn}")
         else:
             print("---------------------------------")
             print("No multi-class datasets were evaluated to calculate average metrics.")
-            
+
         # Add average metrics to the group results for saving
         if valid_results:
-             group_results['Average'] = {
+            group_results['Average'] = {
                 'eer': avg_eer, 'auc': avg_auc, 'accuracy': avg_acc,
                 'tpr': avg_tpr, 'tnr': avg_tnr,
-             }
+                'precision': avg_pre, 'f1': avg_f1,
+                'tp': sum_tp, 'tn': sum_tn, 'fp': sum_fp, 'fn': sum_fn,
+            }
 
     # --- Save consolidated metrics to a YAML file ---
     run_name = data_cfg.get('group_name') or os.path.basename(data_cfg['manifest_path']).split('.')[0]

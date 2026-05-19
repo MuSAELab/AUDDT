@@ -3,14 +3,44 @@ import pandas as pd
 import argparse
 import os
 
+# (latex_header, yaml_key, multiplier, format_string)
+# Use \\% so the output file contains \% — the correct LaTeX escaped percent sign.
+COLUMNS = [
+    ('EER (\\%)',  'eer',       100, '{:.2f}'),
+    ('AUC',        'auc',       1,   '{:.4f}'),
+    ('Acc (\\%)',  'accuracy',  100, '{:.2f}'),
+    ('TPR (\\%)',  'tpr',       100, '{:.2f}'),
+    ('TNR (\\%)',  'tnr',       100, '{:.2f}'),
+    ('Pre (\\%)',  'precision', 100, '{:.2f}'),
+    ('F1',         'f1',        1,   '{:.4f}'),
+    ('TP',         'tp',        1,   '{:.0f}'),
+    ('TN',         'tn',        1,   '{:.0f}'),
+    ('FP',         'fp',        1,   '{:.0f}'),
+    ('FN',         'fn',        1,   '{:.0f}'),
+]
+
+NA = 'N/A'
+
+
+def _format_row(metrics):
+    is_single_class = metrics.get('eer', -1) == -1
+    row = {}
+    for header, key, mult, fmt in COLUMNS:
+        val = metrics.get(key)
+        if is_single_class or val is None or val == -1:
+            row[header] = NA
+        else:
+            row[header] = fmt.format(val * mult)
+    return row
+
+
 def generate_latex_from_metrics(metric_file_path, output_path=None):
     """
-    Reads a YAML metrics file and generates a LaTeX formatted table.
-    
+    Reads a YAML metrics file and generates a LaTeX table.
+
     Args:
-        metric_file_path (str): The path to the metrics.yaml file.
-        output_path (str, optional): If provided, saves the LaTeX table to this file. 
-                                     Otherwise, prints to console. Defaults to None.
+        metric_file_path (str): Path to the metrics YAML file produced by evaluate.py.
+        output_path (str, optional): If given, writes the .tex file here; otherwise prints.
     """
     if not os.path.exists(metric_file_path):
         raise FileNotFoundError(f"Metric file not found at: {metric_file_path}")
@@ -18,88 +48,72 @@ def generate_latex_from_metrics(metric_file_path, output_path=None):
     with open(metric_file_path, 'r') as f:
         metrics_data = yaml.safe_load(f)
 
-    # --- Prepare data for DataFrame ---
-    table_data = []
-    for dataset_name, metrics in metrics_data.items():
-        # Handle single-class datasets
-        if metrics.get('eer', -1) == -1:
-            # Accuracy is still valid for single-class datasets
-            row = {
-                'Dataset': dataset_name,
-                'EER (%)': 'N/A',
-                'AUC': 'N/A',
-                'Accuracy (%)': metrics.get('accuracy', 0) * 100,
-                'TPR (%)': 'N/A',
-                'TNR (%)': 'N/A'
-            }
-        else:
-            row = {
-                'Dataset': dataset_name,
-                'EER (%)': metrics['eer'] * 100,
-                'AUC': metrics['auc'],
-                'Accuracy (%)': metrics['accuracy'] * 100,
-                'TPR (%)': metrics['tpr'] * 100,
-                'TNR (%)': metrics['tnr'] * 100
-            }
-        table_data.append(row)
-
-    if not table_data:
+    if not metrics_data:
         print("No data to generate table.")
         return
 
-    df = pd.DataFrame(table_data)
-    df.set_index('Dataset', inplace=True)
+    # Individual datasets first (in evaluation order), Average pinned to the bottom.
+    table_data = {}
+    for name, metrics in metrics_data.items():
+        if name != 'Average':
+            table_data[name] = _format_row(metrics)
 
-    # --- Calculate Average for numeric columns ---
-    # Convert 'N/A' to NaN to ignore them in mean calculation
-    df_numeric = df.apply(pd.to_numeric, errors='coerce')
-    # Check if there is anything to average after dropping rows that are all NaN
-    if not df_numeric.empty and not df_numeric.dropna(how='all').empty:
-        avg_row = df_numeric.mean().to_frame().T
-        # Use a bold-faced index for the average row
-        avg_row.index = ['\\textbf{Average}']
-        
-        # Format the numbers in the original DataFrame before adding the average
-        float_format_map = {
-            'EER (%)': "{:.2f}", 'AUC': "{:.4f}", 'Accuracy (%)': "{:.2f}",
-            'TPR (%)': "{:.2f}", 'TNR (%)': "{:.2f}",
-        }
+    if 'Average' in metrics_data:
+        table_data['\\textbf{Average}'] = _format_row(metrics_data['Average'])
 
-        for col, fmt in float_format_map.items():
-            if col in df.columns:
-                # Apply formatting, keeping 'N/A' as is
-                df[col] = df[col].apply(lambda x: fmt.format(x) if isinstance(x, (int, float)) else x)
-                # Format the average row separately
-                if col in avg_row.columns:
-                    avg_row[col] = avg_row[col].apply(lambda x: fmt.format(x) if pd.notna(x) else 'N/A')
+    df = pd.DataFrame.from_dict(table_data, orient='index')
 
-        # Append the formatted average row
-        df = pd.concat([df, avg_row])
+    # l for the dataset name, r for every metric column
+    col_fmt = 'l' + 'r' * len(COLUMNS)
 
-    # --- Generate and print LaTeX table ---
-    latex_string = df.to_latex(
-        escape=False, # To allow for \textbf in the index
-        na_rep='N/A'   # How to represent missing values
+    # pandas 2.x always emits booktabs rules (\toprule/\midrule/\bottomrule).
+    # index_names=False suppresses the spurious blank index-name row in pandas 2.x.
+    latex_str = df.to_latex(
+        escape=False,           # preserves \textbf and \% literals
+        column_format=col_fmt,
+        na_rep=NA,
+        index_names=False,
     )
-    
+
+    # Insert a \midrule separator above the Average row when it exists, then
+    # collapse any double-midrule that arises when Average is the first data row.
+    latex_str = latex_str.replace(
+        '\\textbf{Average}',
+        '\\midrule\n\\textbf{Average}',
+    )
+    latex_str = latex_str.replace('\\midrule\n\\midrule', '\\midrule')
+
+    # Wrap in a full table environment ready to \input{} into a paper.
+    # Use table* to span both columns in a two-column layout (suits wide tables).
+    full_latex = (
+        '% Required packages: \\usepackage{booktabs}\n'
+        '\\begin{table*}[htbp]\n'
+        '  \\centering\n'
+        '  \\caption{Evaluation Results}\n'
+        '  \\label{tab:results}\n'
+        + latex_str +
+        '\\end{table*}\n'
+    )
+
     if output_path:
+        os.makedirs(os.path.dirname(output_path), exist_ok=True)
         with open(output_path, 'w') as f:
-            f.write(latex_string)
-        print(f"\nLaTeX table successfully saved to: {output_path}")
+            f.write(full_latex)
+        print(f"\nLaTeX table saved to: {output_path}")
     else:
-        print("-" * 80)
-        print("LaTeX Table ready for your paper:")
-        print("-" * 80)
-        print(latex_string)
-        print("-" * 80)
-        print("Usage: Just copy and paste the code between the lines into your .tex file.")
+        print('-' * 80)
+        print('LaTeX Table — paste into your .tex file:')
+        print('-' * 80)
+        print(full_latex)
+        print('-' * 80)
 
 
 if __name__ == '__main__':
-    parser = argparse.ArgumentParser(description="Generate a LaTeX table from a saved metrics YAML file.")
-    parser.add_argument('metric_file', type=str, help="Path to the metrics YAML file generated by evaluate.py.")
+    parser = argparse.ArgumentParser(
+        description="Generate a LaTeX table from a metrics YAML file produced by evaluate.py."
+    )
+    parser.add_argument('metric_file', type=str, help="Path to the metrics YAML file.")
     parser.add_argument('--output_path', type=str, help="Optional path to save the .tex file.")
     args = parser.parse_args()
-    
-    generate_latex_from_metrics(args.metric_file, args.output_path)
 
+    generate_latex_from_metrics(args.metric_file, args.output_path)
