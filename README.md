@@ -7,7 +7,7 @@
     <img alt="Paper" src="https://img.shields.io/badge/arXiv-2509.21597-b31b1b.svg">
   </a>
   <a href="https://docs.google.com/spreadsheets/d/1RVUrnBqSarKIwsHcjXvTcLxHyop7eAUzsBhvAexyR80/edit?usp=sharing" target="_blank">
-    <img alt="Datasets" src="https://img.shields.io/badge/Datasets-28-blue">
+    <img alt="Datasets" src="https://img.shields.io/badge/Datasets-30-blue">
   </a>
 
 </p>
@@ -31,7 +31,7 @@ The current version includes **30+ datasets**.
 
 ## Supported Datasets
 
-The full list of 28+ supported datasets is maintained in a public Google Sheet for easy viewing and filtering.
+The full list of 30+ supported datasets is maintained in a public Google Sheet for easy viewing and filtering.
 
 ➡️ **[View Full Dataset List on Google Sheets](https://docs.google.com/spreadsheets/d/1RVUrnBqSarKIwsHcjXvTcLxHyop7eAUzsBhvAexyR80/edit?usp=sharing)**
 
