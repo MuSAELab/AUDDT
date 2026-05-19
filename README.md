@@ -14,7 +14,7 @@
 
 **AUDDT** is a benchmark toolkit for audio deepfake detection. The landscape of audio deepfake detection is fragmented with numerous datasets, each having its own data format and evaluation protocol. AUDDT addresses this by providing a unified platform to seamlessly benchmark pretrained models against a wide variety of public datasets. We make a dedicated effort to update it regularly to include more recent datasets. Please see below for current coverage.
 
-The current version includes **28+ datasets**.
+The current version includes **30+ datasets**.
 
 ![AUDDT Workflow Diagram](assets/audit_new.png)
 ---
@@ -37,6 +37,9 @@ The full list of 28+ supported datasets is maintained in a public Google Sheet f
 
 ## Update Log
 We are actively developing AUDDT. See below for the latest updates.
+* **2026-05-18**
+    * Added deepfake audio event datasets: FakeSound, VCapAV, and EnvSSD.
+    * Expanded baseline frontend to include Wav2vec-base, WavLM-base, HuBERT, SSAST, BEATs
 * **2025-09-19**
     * Birth of AUDDT
     * Added 28 datasets to the benchmark

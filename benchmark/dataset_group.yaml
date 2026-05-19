@@ -50,3 +50,5 @@ all:
   #   manifest_path: enhancespeech/processed/manifest_enhancespeech.csv
   # - name: FakeSound
   #   manifest_path: fakesound/processed/manifest_fakesound.csv
+  # - name: EnvSDD
+  #   manifest_path: envssd/processed/manifest_envssd.csv
